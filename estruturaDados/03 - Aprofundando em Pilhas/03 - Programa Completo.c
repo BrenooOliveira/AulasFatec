@@ -14,30 +14,46 @@ int prio(char o) {
     return -1; // operador inválido!
 }
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+
+// Função que converte uma expressão infixa para pós-fixa
 char *posfixa(char *e) {
-    static char s[256];
-    int j = 0;
-    Pilha P = pilha(256);
-    for(int i = 0; e[i]; i++) {
-        if(e[i] == '(') empilha('(', P);
-        else if(isdigit(e[i])) s[j++] = e[i];
-        else if(strchr("+-/*", e[i])) {
-            while(!vaziap(P) && prio(topo(P)) >= prio(e[i]))
+    static char s[256]; // Vetor para armazenar a expressão pós-fixa
+    int j = 0; // Índice para inserção no vetor s
+    Pilha P = pilha(256); // Cria uma pilha com capacidade para 256 elementos
+
+    // Percorre a string de entrada (expressão infixa)
+    for (int i = 0; e[i]; i++) {
+        if (e[i] == '(')  
+            empilha('(', P); // Se for um parêntese de abertura, empilha
+        else if (isdigit(e[i]))  
+            s[j++] = e[i]; // Se for um número, adiciona diretamente à saída
+        else if (strchr("+-/*", e[i])) { // Se for um operador
+            // Desempilha operadores de maior ou igual precedência e adiciona à saída
+            while (!vaziap(P) && prio(topo(P)) >= prio(e[i]))
                 s[j++] = desempilha(P);
-            empilha(e[i], P);
+            empilha(e[i], P); // Empilha o operador atual
         }
-        else if(e[i] == ')') {
-            while(topo(P) != '(')
+        else if (e[i] == ')') { 
+            // Se for um parêntese de fechamento, desempilha até encontrar '('
+            while (topo(P) != '(')
                 s[j++] = desempilha(P);
-            desempilha(P);
+            desempilha(P); // Remove o '(' da pilha
         }
     }
-    while(!vaziap(P))
+
+    // Desempilha quaisquer operadores restantes na pilha
+    while (!vaziap(P))
         s[j++] = desempilha(P);
-    s[j] = '\0';
-    destroip(&P);
-    return s;
+
+    s[j] = '\0'; // Finaliza a string com caractere nulo
+    destroip(&P); // Libera a memória da pilha
+    return s; // Retorna a expressão pós-fixa
 }
+
 
 int avalia_posfixa(char *expr) {
     Pilha P = pilha(256);
