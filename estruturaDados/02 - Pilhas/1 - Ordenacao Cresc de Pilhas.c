@@ -3,9 +3,9 @@
 #include <stdlib.h>
 /*
 Crie um programa que usa duas pilhas A e B
-para ordenar uma sequência de n números dados pelo usuário.
+para ordenar uma sequï¿½ncia de n nï¿½meros dados pelo usuï¿½rio.
 
-A ideia é organizar a pilha A de modo que nenhum item seja empilhado sobre outro menor (use a pilha B apenas para manobra)
+A ideia ï¿½ organizar a pilha A de modo que nenhum item seja empilhado sobre outro menor (use a pilha B apenas para manobra)
 e, depois, descarregar e exibir os itens da pilha A.
 */
 
@@ -34,13 +34,6 @@ destroip(&B);
 } // fim funcao ordena
 
 
-
-
-
-
-
-
-
 int main() {
     int n;
     printf("Quantos numeros deseja ordenar? ");
@@ -58,7 +51,7 @@ int main() {
 
     ordena_pilha(A, n);
 
-    // Exibir os números ordenados (desempilhando A)
+    // Exibir os nï¿½meros ordenados (desempilhando A)
     printf("\n \n Numeros ordenados: ");
     while (!vaziap(A)) {
         printf("%d ", desempilha(A));
