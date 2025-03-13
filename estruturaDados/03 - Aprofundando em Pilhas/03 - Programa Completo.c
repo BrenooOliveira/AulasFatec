@@ -3,6 +3,16 @@
 #include <string.h>
 #include "pilha.h"
 
+/*
+Crie um programa completo para ler uma expressão aritmética na forma infixa e exibir sua forma
+posfixa correspondente, bem como seu valor numérico.
+
+Por exemplo, para a expressão infixa "2*3+8/4", o programa deve apresentar como saída a
+forma posfixa "23*84/+" e o valor numérico 8
+
+*/
+
+
 int prio(char o) {
     switch(o) {
         case '(' : return 0;
