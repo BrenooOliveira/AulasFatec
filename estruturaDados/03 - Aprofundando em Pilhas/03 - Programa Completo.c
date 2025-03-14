@@ -10,6 +10,9 @@ posfixa correspondente, bem como seu valor numérico.
 Por exemplo, para a expressão infixa "2*3+8/4", o programa deve apresentar como saída a
 forma posfixa "23*84/+" e o valor numérico 8
 
+(1*2)+3
+12*3+
+
 */
 
 
@@ -24,10 +27,6 @@ int prio(char o) {
     return -1; // operador inválido!
 }
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
 
 // Função que converte uma expressão infixa para pós-fixa
 char *posfixa(char *e) {
