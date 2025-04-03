@@ -10,42 +10,48 @@
 
 #include <stdio.h>
 
+// Função para trocar dois elementos do vetor
 void troca(int v[], int i, int j) {
-    // i e j: indices que serao trocados
-    // troca i por j
-    int x = v[i]; // auxiliar
-    v[i] = v[j]; 
-    v[j] = x;
+    // i e j são os índices dos elementos que serão trocados
+    int x = v[i]; // Armazena temporariamente o valor de v[i]
+    v[i] = v[j];  // Substitui v[i] pelo valor de v[j]
+    v[j] = x;     // Atribui o valor original de v[i] a v[j]
 }
 
+// Implementação do Bubble Sort para ordenar o vetor
 void bsort(int v[], int n) {
-    for(int i=1; i<n; i++) // para cada i no range do vetor (n)
-        for(int j=0; j<n-i; j++) // para cada j no range de n-i (ou seja, até chegar no indice que o valor de i esta)
-            if( v[j]>v[j+1] ) // se o indice de j for menor que o proximo j
-                troca(v,j,j+1); // troca j por j+1
+    for (int i = 1; i < n; i++) // Laço externo controla o número de iterações
+        for (int j = 0; j < n - i; j++) // Laço interno percorre o vetor até a posição correta
+            if (v[j] > v[j + 1]) // Se o elemento atual for maior que o próximo
+                troca(v, j, j + 1); // Troca os dois elementos
 }
 
-void exibe(int v[],int n){
-    for (int i=0; i<n; i++){
-        printf(" %d ", v[i]);
+// Função para exibir o vetor
+void exibe(int v[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf(" %d ", v[i]); // Imprime cada elemento do vetor com espaço entre eles
     }
+    printf("\n"); // Quebra de linha para melhor visualização
 }
 
-void empurra(int v[], int u){
-    if (u == 0) return;
-    
-    int max_item = 0;
-    for(int i=1; i<u; i++){
-        if(v[i] > v[max_item]) max_item = i;
-    };
+// Função para empurrar o maior elemento até a posição u do vetor
+void empurra(int v[], int u) {
+    if (u == 0) return; // Caso base: se u for 0, não há nada a empurrar
 
-    troca(v,max_item,u);
+    int max_item = 0; // Índice do maior elemento encontrado
+    for (int i = 1; i < u; i++) { // Percorre o vetor até a posição u
+        if (v[i] > v[max_item]) max_item = i; // Atualiza max_item se encontrar um valor maior
+    }
+
+    troca(v, max_item, u); // Move o maior valor encontrado para a posição u
 }
 
-
+// Função principal
 int main(void) {
-    int v[9] = {51,82,38,99,75,19,69,46,27};
-    empurra(v,8);
-    exibe(v,9);
-return 0;
+    int v[9] = {51, 82, 38, 99, 75, 19, 69, 46, 27}; // Vetor de entrada
+
+    empurra(v, 8); // Move o maior elemento para a posição 8 do vetor
+    exibe(v, 9);   // Exibe o vetor atualizado
+
+    return 0;
 }

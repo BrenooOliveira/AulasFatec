@@ -15,7 +15,7 @@ int q(int n){
 
 
 int main(void) {
-    int r = q(0);
+    int r = q(3);
 
     printf("%d \n", r);  // Imprime o resultado corretamente
     return 0;
