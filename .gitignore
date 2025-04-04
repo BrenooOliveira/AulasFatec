@@ -2,3 +2,5 @@ output/
 old/
 **/.vscode/
 *.txt
+*.o
+.exe
