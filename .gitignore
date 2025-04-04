@@ -1,3 +1,4 @@
 output/
 old/
 **/.vscode/
+*.txt
