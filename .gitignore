@@ -4,3 +4,7 @@ old/
 *.txt
 *.o
 .exe
+build/
+*.out
+*.exe
+*.log
