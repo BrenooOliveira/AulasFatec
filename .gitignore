@@ -1,11 +1,6 @@
-output/
-old/
-**/.vscode/
-*.txt
-*.o
-.exe
-build/
-*.out
-*.exe
-*.log
-*.png
+# Permite somente arquivos .c e .h e .pdf
+*
+!*.c
+!*.h
+!*.pdf
+!*/
