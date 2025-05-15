@@ -51,9 +51,9 @@ void exibeComColchetes(Lista L) {
     printf("]\n");
 }
 
-// Função principal de teste
+
 int main(void) {
-    Lista L = intervalo(-2, 3);  // Deve gerar [-2, -1, 0, 1, 2, 3]
+    Lista L = intervalo(-2, 3);  
     printf("Lista gerada: ");
     exibeComColchetes(L);
     return 0;
