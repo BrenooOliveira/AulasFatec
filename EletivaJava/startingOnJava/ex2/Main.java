@@ -5,11 +5,12 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Churrasco churrasco = new Churrasco();
-        
-        Scanner numConvidados = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Quantos convidados? ");
+        int numConvidados = scanner.nextInt();
         
-        churrasco.consumoTotal((Integer) numConvidados.nextLine());
+        churrasco.consumoTotal(numConvidados);
 
 
     }
