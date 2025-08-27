@@ -4,7 +4,7 @@
         Double salarioBruto;
         Double valeTransp;
         Double impostoRenda;
-        Double inss = 291.24;
+        private Double inss = 291.24;
         Double deducaoSimplificada = 186.16;
         Double planoSaude = 280.00;
         
