@@ -21,7 +21,7 @@ public class LRUcache{
         for (int chave : ordem){
             estado.add(chave + " = " + cache.get(chave));   
         }
-        System.out.println("Estado atual: " + estado);
+        System.out.println("Estado atual: " + cache);
         System.out.println("---------------------------");
     }
 
@@ -38,5 +38,25 @@ public class LRUcache{
             System.out.println(chave + "Chave não encontrada!");
             return null;
         }
+    }
+
+    public void putValor(int chave, String valor){
+        if(cache.containsKey(chave)){
+            cache.put(chave, valor); // atualiza o valor
+            ordem.remove(chave); // remove a posicao atual
+            ordem.addLast(chave); // insere na posicao mais recente
+            System.out.println("Atualizando chave " + chave + " para " + valor);
+        } else {
+            if (cache.size() >= capacidade){ // se o tamanho do cache for maior que a capacidade
+                int lru = ordem.removeFirst(); // remove o mais recente
+                cache.remove(lru);
+                System.out.println("Removendo " + lru + " (menos usado) ");
+            }
+            cache.put(chave, valor);
+            ordem.addLast(chave); // add como mais recente
+            System.out.println("Inserindo " + chave + ": " + valor);
+        }
+        mostrarCache();
+
     }
 }
