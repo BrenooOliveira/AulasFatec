@@ -6,7 +6,8 @@ public class Pessoa {
 
     // construtor
     public Pessoa(String nome, int idade){
-
+        this.nome = nome;
+        this.idade = idade;
     }
 
     // getters
@@ -27,6 +28,8 @@ public class Pessoa {
 
     // metodos
     public void exibirDados(){
-        System.out.println("Nome: " + nome + "Idade" + "idade");
+        System.out.println("Nome: " + this.nome + " Idade: " + this.idade);
     }
+
+    
 }

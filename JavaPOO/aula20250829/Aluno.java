@@ -16,4 +16,11 @@ public class Aluno extends Pessoa{
         this.matricula = matricula;
     }
 
+    // metodo herdado
+    @Override
+    public void exibirDados(){
+        super.exibirDados();
+        System.out.println("Matricula: " + matricula);
+    }
+
 }
