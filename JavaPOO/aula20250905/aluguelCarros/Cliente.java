@@ -27,4 +27,21 @@ public class Cliente{
     public String getNumCnh(){
         return numCnh;
     }
+    public void exibeDadosCliente(double valorLocacao) {
+        String recibo = String.format(
+            """
+            ===== Dados da Locação =====
+            Cliente:            %s
+            Modelo Escolhido:   %s
+            Quantidade Diárias: %d
+            Valor Total:        R$ %.2f
+            ============================
+            """,
+            nome, modeloDesejado, numDiarias, valorLocacao
+        );
+        System.out.println(recibo);
+    }
+
+
+    
 }

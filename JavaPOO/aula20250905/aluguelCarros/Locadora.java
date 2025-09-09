@@ -14,4 +14,8 @@ public class Locadora {
         return modelosPrecos;
 
     }
+
+    public Double calcularValorTotal(String modelo, int numDiarias){
+        return modelosPrecos.get(modelo) * numDiarias;
+    }
 }
