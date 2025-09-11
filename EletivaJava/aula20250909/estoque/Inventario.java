@@ -36,4 +36,20 @@ public class Inventario {
         System.out.println("Valor Unitário:" + getProductInfo(product).getValorUnit());
         System.out.printf("=========================================================\n",product);
     }
+
+    public Map<String,Integer> getLogVendas(){
+        return logsVendas;
+    }
+
+    public void salesReport(){
+        System.out.printf("============= RELATÓRIO DE VENDAS =============\n");
+        logsVendas.forEach(
+            (k, v) -> {
+                     int unidadesVendidas = v;
+                     Double valorVendas = v*invent.get(k).getValorUnit();
+                     char reposicao = (invent.get(k).getQtde() < invent.get(k).getQtdeAlerta()) ? 'S' : 'N';
+                     System.out.printf("Produto: %s | Unidades Vendidas: %d | Valor em Vendas: R$%.2f | Reposição? %c \n",k, unidadesVendidas, valorVendas,reposicao); 
+                    } 
+            ); 
+    }
 }
