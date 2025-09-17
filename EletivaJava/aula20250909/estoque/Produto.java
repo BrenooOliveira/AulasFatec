@@ -1,13 +1,16 @@
 package estoque;
-
+ 
 public class Produto {
-    private int qtde;
-    private double valorUnit;
-    private int qtdeAlerta;
+    private int qtde; // qtde do estoque
+    private double valorUnit; // valor que o item sera vendido
+    private double custoUnit; // custo do item
+    private int qtdeAlerta; // qtde miníma para alerta
+    
 
-    public Produto(int qtde,double valorUnit){
+    public Produto(int qtde,double valorUnit, double custoUnit){
         this.qtde = qtde;
         this.valorUnit = valorUnit;
+        this.custoUnit = custoUnit;
         this.qtdeAlerta = (int) (qtde*0.2); // RN: 20% do estoque é uma quantidade de alerta
     }
 
@@ -20,6 +23,9 @@ public class Produto {
     }
     public int getQtdeAlerta(){
         return this.qtdeAlerta;
+    }
+    public double getCustoUnit(){
+        return this.custoUnit;
     }
     
     // metodos

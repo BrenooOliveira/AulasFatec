@@ -21,3 +21,17 @@ Por fim, deverá mostrar:
 - o valor em vendas realizado;
 - quais produts precisam de reposição.
 
+--- 
+# EXTRA 
+Atividade extra, valendo ponto (vou postar no teams): 
+
+Considerando a tabela abaixo, calcule com base nas vendas realizadas qual foi o lucro bruto.  
+
+| PRODUTO | MARGEM DE LUCRO |
+| :--- | :--- |
+| A | 150% |
+| B | 80% |
+| C | 5% |
+| D | 2% |
+
+Calcule também, baseado na tabela anterior qual será o custo para recompor o estoque até a situação inicial, e qual será o lucro líquido total da empresa 
