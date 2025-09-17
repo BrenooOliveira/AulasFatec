@@ -52,7 +52,7 @@ public class UrnaEletronica {
         // Adiciona os 4 candidatos
         candidatos.add(new Candidato("Candidato 1"));
         candidatos.add(new Candidato("Candidato 2"));
-        candidatos.add(new Candidato("Candidato 3"));
+        candidatos.add(new Candidato( "Candidato 3"));
         candidatos.add(new Candidato("Candidato 4"));
 
         this.votosEmBranco = 0; // Inicializa os votos em branco
