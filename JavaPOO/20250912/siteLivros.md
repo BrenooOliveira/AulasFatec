@@ -128,8 +128,10 @@ direction TB
 	    +consultarFornecedorPorNome(nome: String)
     }
 
-    CarrinhoCompras "0" ..> "n" ItemCarrinho
+    CarrinhoCompras "1" ..> "0...n" ItemCarrinho
+	ItemCarrinho "1" --> "1"Produto
+	Produto "1"--o "1"EstoqueProduto
     CarrinhoCompras "0" --* "1" Venda
-    Venda -- Pagamento
+    Venda "1" --o "1..n"Pagamento    
 
 ```
