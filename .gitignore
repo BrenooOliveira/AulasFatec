@@ -6,4 +6,5 @@
 !*/
 !*.java
 !*.md
-.yaml
+!*.yaml
+.venv/
