@@ -8,6 +8,9 @@ repos:
       - id: check-yaml
       - id: check-json
       - id: check-added-large-files
+      - id: pretty-format-json # Formata JSON
+        args: ["--autofix"]
+
 
   - repo: local
     hooks:
