@@ -3,10 +3,10 @@ package lru;
 import java.util.*;
 
 public class LRUcache{
-    private int capacidade; //"capacidade" da cache 
+    private int capacidade; //"capacidade" da cache
     private Map<Integer, String> cache; // chave, valor (dicionario em python) -> cache disponivel
     private LinkedList<Integer> ordem; // ordem do uso, equivalente ao deque
-    
+
     // Constructor
     public LRUcache(int capacidade){
         this.capacidade = capacidade;
@@ -19,7 +19,7 @@ public class LRUcache{
     private void mostrarCache(){
         List<String> estado = new ArrayList<>();
         for (int chave : ordem){
-            estado.add(chave + " = " + cache.get(chave));   
+            estado.add(chave + " = " + cache.get(chave));
         }
         System.out.println("Estado atual: " + cache);
         System.out.println("---------------------------");

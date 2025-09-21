@@ -167,7 +167,7 @@
 
         printf("\nDestruindo árvore...\n");
         destroi(&B);
-        exibe(B, 0); 
+        exibe(B, 0);
 
         return 0;
     }

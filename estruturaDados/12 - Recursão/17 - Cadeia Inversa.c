@@ -15,7 +15,7 @@ char* inv(char s[], int p, int u) {
     char temp = s[p];
     s[p] = s[u];
     s[u] = temp;
-    
+
     return inv(s, p+1, u-1);
 }
 

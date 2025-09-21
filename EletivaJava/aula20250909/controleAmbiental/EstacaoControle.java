@@ -36,13 +36,13 @@ public class EstacaoControle {
             System.out.println("Ação: Ligar aquecedores até 20 graus.");
             return;
         }
-        
+
         // 4. Condição para temperatura alta, mas não de emergência
         if (temperatura > 21 && umidade >= 70 && umidade <= 90) {
             System.out.println("Ação: Ligar ventilação.");
             return;
         }
-        
+
         // 5. Condição de operação normal (nenhuma ação)
         if (temperatura >= 15 && temperatura <= 21 && umidade >= 70 && umidade <= 90) {
             System.out.println("Ação: Nenhuma.");

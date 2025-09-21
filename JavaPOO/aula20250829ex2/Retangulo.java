@@ -1,6 +1,6 @@
 public class Retangulo extends FormasGeometrica implements Forma2D {
     private double largura, altura;
-    
+
     public Retangulo(double largura, double altura){
         super("Retangulo");
         this.largura = largura;

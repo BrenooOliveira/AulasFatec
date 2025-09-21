@@ -92,7 +92,7 @@ void remmr(Chave c, Map *M) {
 
 int main(void) {
     Map I = NULL;
-    
+
     insmr(36,"Leo",&I); insmr(15,"Ivo",&I);
     insmr(42,"Eva",&I); insmr(29,"Ana",&I);
 
@@ -105,6 +105,6 @@ int main(void) {
     remmr(42,&I); // remove (42,"Eva") de I recursivamente
 
     exibem(I);
-    
+
     return 0;
 }

@@ -32,7 +32,7 @@ char *posfixa (char *e) {
 
 int main(void) {
     char e[513];
-    
+
     for (int i = 0; i < 5; i++)
     {
         printf("Infixa? ");

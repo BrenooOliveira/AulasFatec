@@ -35,25 +35,25 @@ public String getStatus(){
 }
 public String getDataNascimento(){
     return dataNascimento;
-} 
+}
 
 //setters
 public void setMatricula (String matricula){
-    this.matricula = matricula; 
+    this.matricula = matricula;
 }
 
 public void setNome (String nome){
-    this.nome = nome; 
+    this.nome = nome;
 }
 
 public void setEmail (String email){
-    this.email = email; 
+    this.email = email;
 }
 public void setStatus (String status){
-    this.status = status; 
+    this.status = status;
 }
 public void setDataNascimento (String dataNascimento){
-    this.dataNascimento = dataNascimento; 
+    this.dataNascimento = dataNascimento;
 }
 
 // metodos

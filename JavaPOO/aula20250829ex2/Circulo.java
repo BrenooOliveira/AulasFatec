@@ -9,7 +9,7 @@ public class Circulo extends FormasGeometrica implements Forma2D {
     @Override
     public Double calcularArea(){
         return Math.PI * Math.pow(raio, 2);
-    }   
+    }
 
     @Override
     public Double calcularPerimetro() {

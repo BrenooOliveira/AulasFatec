@@ -2,21 +2,21 @@ package JavaPOO.aula20250822;
 
 public class Main {
     public static void main(String[] args) {
-        // objetos 
+        // objetos
         Materia poo = new Materia(
                     "60h",
                     "Programação Orientada a Objetos",
                     "POO123",
                     "Wellington",
                     "Segunda 19:00-22:00",
-                    false);   
+                    false);
         Materia engsoftw = new Materia(
                     "120h",
                     "Engenharia de Software",
                     "ENGSOFT456",
                     "Rogerio",
                     "Terça 19:00-22:00",
-                    true);   
+                    true);
         Materia bd = new Materia(
                     "40h",
                     "Banco de Dados",
@@ -33,19 +33,19 @@ public class Main {
                     false);
 
         Aluno breno = new Aluno(
-                    "1", 
+                    "1",
                     "Breno",
                     "breno.fatec",
                     "Ativo",
-                    "01/01/2004");   
+                    "01/01/2004");
         Aluno joao = new Aluno(
-                    "2", 
+                    "2",
                     "João",
                     "joao.fatec",
                     "Ativo",
                     "02/02/2004");
         Aluno maria = new Aluno(
-                    "3", 
+                    "3",
                     "Maria",
                     "maria.fatec",
                     "Inativo",

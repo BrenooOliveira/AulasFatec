@@ -31,9 +31,9 @@ void empurra(int v[], int u) {
 
     // Inicializa max_idx como o primeiro índice
     int max_idx = 0;
-    
+
     // Percorre o vetor até a posição u para encontrar o maior elemento
-    for (int i = 1; i <= u; i++) { 
+    for (int i = 1; i <= u; i++) {
         if (v[i] > v[max_idx]) { // Se encontrar um elemento maior
             max_idx = i; // Atualiza o índice do maior elemento encontrado
         }

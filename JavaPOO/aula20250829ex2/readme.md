@@ -10,7 +10,7 @@ pentagono
 hexagono
 triangulo
 
-Cada objeto deverá ter seu método para calcular a área e o perímetro. 
+Cada objeto deverá ter seu método para calcular a área e o perímetro.
 
 # Arquitetura proposta:
 
@@ -29,7 +29,7 @@ classDiagram
 
     Forma2D : +area()
     Forma2D : +perimetro()
-    
+
     Forma3D : +area()
     Forma3D : +volume()
 ```

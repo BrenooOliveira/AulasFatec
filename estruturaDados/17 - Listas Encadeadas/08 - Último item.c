@@ -16,7 +16,7 @@ typedef struct no {
     struct no *prox;   // Ponteiro para o próximo nó
 } *Lista;              // Define 'Lista' como um ponteiro para struct no (facilita o uso)
 
-/* 
+/*
  * Cria um novo nó com valor x e aponta para p como próximo.
  * Retorna o novo nó criado.
  */

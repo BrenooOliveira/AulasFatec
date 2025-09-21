@@ -15,7 +15,7 @@ a saída indicada a seguir:
     Lista: [10, 20, 30, 40, 50]
     Lista: [10, 20, 30, 40, 50, 60]
     Lista: [10, 20, 30, 40, 50, 60, 70]
-    Lista: [10, 20, 30, 40, 50, 60, 70]    
+    Lista: [10, 20, 30, 40, 50, 60, 70]
 */
 
 
@@ -62,6 +62,6 @@ int main(void) {
     printf("Exercício 02 - Outra forma de exibição\n");
     Lista I = no(3, no(1, no(5, NULL)));
     exibeComColchetes(I);
-    
+
     return 0;
 }

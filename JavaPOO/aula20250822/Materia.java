@@ -39,7 +39,7 @@ public String getHorario() {
 }
 public Boolean getOptativa(){
     return optativa;
-}   
+}
 
 //setters
 public void setCargaHoraria (String cargaHoraria){

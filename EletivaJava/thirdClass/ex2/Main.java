@@ -25,5 +25,5 @@ public class Main {
         System.out.printf("Média: %.2f%n", media);
 
     }
-    
+
 }

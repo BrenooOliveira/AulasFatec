@@ -9,7 +9,7 @@ public class Main {
 
         System.out.println("Quantos convidados? ");
         int numConvidados = scanner.nextInt();
-        
+
         churrasco.consumoTotal(numConvidados);
 
 

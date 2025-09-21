@@ -15,7 +15,7 @@ void preenche(int v[], int n, int s) {
         v[i] = rand() % 1000; // Gera um número aleatório entre 0 e 999
     }
 }
-            
+
 // Função para exibir o vetor
 void exibe(int v[], int n) {
     for(int i = 0; i < n; i++) {

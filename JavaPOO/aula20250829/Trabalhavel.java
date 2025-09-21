@@ -1,6 +1,6 @@
 package aula20250829;
 /*  interface -> "contrato"
-- não exite lógica  
+- não exite lógica
 "quem me implementar, tem que ter esse metodo trabalhar()"
 
 usa-se quando:

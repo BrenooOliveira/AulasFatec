@@ -7,7 +7,7 @@
         private Double inss = 291.24;
         Double deducaoSimplificada = 186.16;
         Double planoSaude = 280.00;
-        
+
 
         // construtor
         public CalculaSalario(Double salarioBruto) {
@@ -24,12 +24,12 @@
         public Double salarioLiquido(){
             return salarioBruto - calculaDescontos();
         }
-        
+
         public Double fgts(){
             return salarioLiquido() * 0.8;
         }
 
-        // -------- FÉRIAS -------- //  
+        // -------- FÉRIAS -------- //
         // terço constitucional de ferias
         public Double tercoConstitucional(){
             return salarioBruto/3;

@@ -135,6 +135,6 @@ int main(void) {
 
     if( pertmr(10,w,&I) ) printf("Valor da chave 10: %s\n",w); // Versão recursiva
     else puts("Chave 10 inexistente!");
-    
+
     return 0;
 }

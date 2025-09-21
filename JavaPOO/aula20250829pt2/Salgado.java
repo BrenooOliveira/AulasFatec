@@ -18,7 +18,7 @@ public class Salgado {
     }
     public String getSabor(){
         return sabor;
-    } 
+    }
     public Double getPreco(){
         return preco;
     }

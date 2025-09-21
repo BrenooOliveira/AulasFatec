@@ -18,9 +18,9 @@ int main(void) {
         int p = x / 10; // Obtém o identificador do processo (parte inteira)
         int t = x % 10; // Obtém o tempo restante de execução
 
-        if (t > TIMESLICE)  
+        if (t > TIMESLICE)
             enfileira(p * 10 + (t - TIMESLICE), F); // Se o processo precisa de mais tempo, volta para a fila
-        else  
+        else
             printf("Processo %d concluido\n", p); // Se o tempo restante for menor ou igual ao slice, ele finaliza
     }
 

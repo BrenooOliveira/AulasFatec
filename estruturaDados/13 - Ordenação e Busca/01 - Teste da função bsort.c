@@ -8,7 +8,7 @@
 void troca(int v[], int i, int j) {
     // troca i por j
     int x = v[i]; // auxiliar
-    v[i] = v[j]; 
+    v[i] = v[j];
     v[j] = x;
 }
 

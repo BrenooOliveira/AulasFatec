@@ -135,7 +135,7 @@ int main(void) {
     insm(15, 200, &I);
     insmr(42, 300, &I);
     insmr(29, 400, &I);
-    exibem(I);  
+    exibem(I);
 
     // atualização e remoções
     insmr(29, 450, &I); // inserção recursiva

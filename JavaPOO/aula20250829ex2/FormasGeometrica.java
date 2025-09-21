@@ -10,5 +10,5 @@ public abstract class FormasGeometrica {
         return nome;
     }
 
-    
+
 }

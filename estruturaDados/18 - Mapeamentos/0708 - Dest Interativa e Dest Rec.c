@@ -144,7 +144,7 @@ void destroimr(Map *M) {
 int main(void) {
     Valor w;
     Map I = NULL;
-    
+
     // INTERATIVA
     insm(36,"Leo",&I); insm(15,"Ivo",&I); insm(42,"Eva",&I); // insercao interativa
     exibem(I); // exibicao
@@ -156,7 +156,7 @@ int main(void) {
     exibem(I); // exibicao
     destroimr(&I); // destruicao recursiva
     exibem(I); // visualização apos a destruicao
-    
+
 
     return 0;
 }

@@ -13,7 +13,7 @@ int main() {
 
     while (1) {
         printf("\nDigite o mes de nascimento (1-12) ou 'sair' para encerrar: ");
-        if (scanf("%19s", entrada) != 1) { 
+        if (scanf("%19s", entrada) != 1) {
             limparBuffer();
             continue;
         }
@@ -27,7 +27,7 @@ int main() {
         // Tenta converter para número
         if (sscanf(entrada, "%d", &month) != 1) {
             printf("Entrada inválida! Digite um número ou 'sair'.\n");
-            continue;   
+            continue;
         }
 
         printf("Digite o dia de nascimento (1-31): ");

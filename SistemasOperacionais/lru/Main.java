@@ -24,14 +24,14 @@ Inserindo 3: C
 Estado atual: {1=A, 2=B, 3=C}
 ---------------------------
 Acessando a chave: 1: A
-Removendo 1 (menos usado) 
+Removendo 1 (menos usado)
 Inserindo 4: D
 Estado atual: {2=B, 3=C, 4=D}
 ---------------------------
 Acessando a chave: 2: B
-Removendo 3 (menos usado) 
+Removendo 3 (menos usado)
 Inserindo 5: E
 Estado atual: {2=B, 4=D, 5=E}
- * 
- * 
+ *
+ *
  */

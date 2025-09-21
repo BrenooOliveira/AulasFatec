@@ -3,7 +3,7 @@ package aluguelCarros;
 public class Main {
     public static void main(String[] args) {
         Locadora locadora = new Locadora();
-        
+
         Cliente cliente = new Cliente(
                                         "Breno",
                                         20 ,
@@ -31,5 +31,5 @@ public class Main {
         // core do programa: calcular o valor total e exibir dados
         double valorLocacao = locadora.calcularValorTotal(cliente.modeloDesejado, cliente.numDiarias);
         cliente.exibeDadosCliente(valorLocacao);
-    }   
+    }
 }

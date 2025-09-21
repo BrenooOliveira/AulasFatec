@@ -15,13 +15,13 @@ int main(void) {
     int v[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     int x = 98;
     int result = lsearch(v, n, x);
-    
+
     if (result != -1) {
         printf("Elemento %d encontrado na posição %d\n", x, result);
     } else {
         printf("Elemento %d não encontrado\n", x);
     }
-    
+
     return 0;
 }
 // O código acima implementa uma busca linear em um vetor de inteiros.
@@ -30,5 +30,3 @@ int main(void) {
 // A busca linear é simples, mas ineficiente para vetores grandes, pois tem complexidade O(n).
 // Para vetores pequenos, como o exemplo, a busca linear é rápida e fácil de implementar.
 // A busca linear é útil quando o vetor não está ordenado ou quando a lista é pequena.
-
-

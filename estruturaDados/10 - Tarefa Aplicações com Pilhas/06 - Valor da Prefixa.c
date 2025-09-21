@@ -23,16 +23,16 @@ char *posfixa(char *e) {
     Pilha P = pilha(strlen(e));
 
     for (int i = 0; e[i]; i++) {
-        if (e[i] == '(')  
+        if (e[i] == '(')
             empilha('(', P);
-        else if (isdigit(e[i]))  
+        else if (isdigit(e[i]))
             s[j++] = e[i];
         else if (strchr("+-/*", e[i])) {
             while (!vaziap(P) && prio(topo(P)) >= prio(e[i]))
                 s[j++] = desempilha(P);
             empilha(e[i], P);
         }
-        else if (e[i] == ')') { 
+        else if (e[i] == ')') {
             while (topo(P) != '(')
                 s[j++] = desempilha(P);
             desempilha(P);
@@ -53,8 +53,8 @@ char *inverte_infixa(char *e){
     Pilha P = pilha(tamanho);
     char *s = malloc(tamanho + 1);
     int j = 0;
-    
-    for(int i = 0; e[i]; i++){ 
+
+    for(int i = 0; e[i]; i++){
         if(e[i] == '('){
             empilha(')', P);
         }
@@ -89,8 +89,8 @@ int valpre(char *e) {
     for (int i = strlen(e) - 1; i >= 0; i--) {
         if (isdigit(e[i])) {
             // Se for um número, convertemos e empilhamos
-            empilha(e[i] - '0', P);  
-        } 
+            empilha(e[i] - '0', P);
+        }
         else if (strchr("+-*/", e[i])) {
             // Se for um operador, desempilhamos os dois operandos
             int a = desempilha(P);
@@ -102,13 +102,13 @@ int valpre(char *e) {
                 case '+': resultado = a + b; break;
                 case '-': resultado = a - b; break;
                 case '*': resultado = a * b; break;
-                case '/': 
+                case '/':
                     if (b == 0) {
                         printf("Erro: Divisão por zero!\n");
                         destroip(&P);
                         return 0;
                     }
-                    resultado = a / b; 
+                    resultado = a / b;
                     break;
             }
             // Empilhamos o resultado

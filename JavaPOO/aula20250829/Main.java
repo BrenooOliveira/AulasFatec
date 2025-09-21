@@ -6,7 +6,7 @@ public class Main {
         System.out.println("Nome: " + pessoa1.getNome());
         System.out.println("Idade: " + pessoa1.getIdade());
         pessoa1.exibirDados();
-        
+
         Trabalhavel pessoa2 = new Trabalhavel.Pessoa();
         pessoa2.trabalhar();
     }

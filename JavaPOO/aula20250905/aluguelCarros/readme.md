@@ -13,6 +13,6 @@ A locadora tem 3 modelos disponiveis:
 - intermediario, -> 110 reais
 - luxo. -> 200 reais
 
-sendo que a tarifa do básico é de 90 reais a diaria, o intermediario é de 110 reais a diaria e o luxo 200 reais a diaria. 
+sendo que a tarifa do básico é de 90 reais a diaria, o intermediario é de 110 reais a diaria e o luxo 200 reais a diaria.
 
 O programa deverá calcular o valor total da diaria e exibir todos os dados do cliente na tela

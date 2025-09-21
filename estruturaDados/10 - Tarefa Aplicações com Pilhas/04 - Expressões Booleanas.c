@@ -4,17 +4,17 @@
 #include "pilha.h"
 
 /*
-Com base nos algoritmos descritos, crie um programa para ler uma expressão booleana 
+Com base nos algoritmos descritos, crie um programa para ler uma expressão booleana
 completamente parentesiada e exibir sua forma posfixa correspondente, bem como seu valor numérico.
 
 Considere que as expressões são compostas por:
     -Operandos: letras maiúsculas F e V, com valores numéricos 0 e 1, respectivamente.
     -  Operadores: ! (não), & (e) e | (ou), da maior para a menor prioridade.
     - Delimitadores: parênteses de abertura e fechamento.
- 
+
     -Por exemplo, para a expressão booleana infixa parentesiada "((!F)|(F&V))", o programa
     deve apresentar como saída a forma posfixa "F!FV&|" e o valor numérico 1.
- 
+
 
 
 
@@ -91,7 +91,7 @@ int avalia_posfixa(char *expr){
             switch (expr[i])
             {
             case '&':
-                empilha(a & b,P); break; 
+                empilha(a & b,P); break;
             case '|':
                 empilha(a | b, P); break;
             }

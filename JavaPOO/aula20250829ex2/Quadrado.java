@@ -1,6 +1,6 @@
 public class Quadrado extends FormasGeometrica implements Forma2D {
     private double lado;
-    
+
     public Quadrado(double lado) {
         super("Quadrado");
         this.lado = lado;

@@ -7,7 +7,7 @@
 
  */
 
- 
+
 
 // Função recursiva para determinar se um número é par
 int par(int n) {

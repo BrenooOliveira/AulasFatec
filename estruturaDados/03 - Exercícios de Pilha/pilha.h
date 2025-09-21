@@ -38,7 +38,7 @@ Itemp desempilha(Pilha P) {
    if( vaziap(P) ) { puts("pilha vazia!"); abort(); }
    Itemp x = P->item[P->topo];
    P->topo--;
-   return x; 
+   return x;
 }
 
 Itemp topo(Pilha P) {
@@ -51,4 +51,3 @@ void destroip(Pilha *Q) {
    free(*Q);
    *Q = NULL;
 }
-

@@ -20,15 +20,15 @@ public class Calculadora{
         System.out.println("Subtração: " + this.subtracao());
         System.out.println("Multiplicação: " + this.multiplicacao());
         System.out.println("Divisão: " + this.divisao());
-        
+
         // Exibe a raiz quadrada do primeiro número
         System.out.println("Raiz quadrada do primeiro número (" + this.num1 + "): " + this._sqrt(this.num1)     );
-        
+
         // Exibe a exponenciação
         System.out.println("Exponenciação (" + this.num1 + " elevado a " + this.num2 + "): " + this.exponential());
         System.out.println("--------------------------------");
     }
-    
+
     // Métodos das operações
     Double soma(){
         return num1 + num2;

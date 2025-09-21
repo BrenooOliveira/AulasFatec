@@ -36,9 +36,9 @@ char *posfixa(char *e) {
 
     // Percorre a string de entrada (expressão infixa)
     for (int i = 0; e[i]; i++) {
-        if (e[i] == '(')  
+        if (e[i] == '(')
             empilha('(', P); // Se for um parêntese de abertura, empilha
-        else if (isdigit(e[i]))  
+        else if (isdigit(e[i]))
             s[j++] = e[i]; // Se for um número, adiciona diretamente à saída
         else if (strchr("+-/*", e[i])) { // Se for um operador
             // Desempilha operadores de maior ou igual precedência e adiciona à saída
@@ -46,7 +46,7 @@ char *posfixa(char *e) {
                 s[j++] = desempilha(P);
             empilha(e[i], P); // Empilha o operador atual
         }
-        else if (e[i] == ')') { 
+        else if (e[i] == ')') {
             // Se for um parêntese de fechamento, desempilha até encontrar '('
             while (topo(P) != '(')
                 s[j++] = desempilha(P);
@@ -68,7 +68,7 @@ int avalia_posfixa(char *expr) {
     Pilha P = pilha(256);
     for(int i = 0; expr[i]; i++) {
         if(isdigit(expr[i])) {
-            empilha(expr[i] - '0', P); // subtraimos o numero que vem como str pelo '0', assim, na tabela ASCII, irá resultar no numero inteiro correspondente 
+            empilha(expr[i] - '0', P); // subtraimos o numero que vem como str pelo '0', assim, na tabela ASCII, irá resultar no numero inteiro correspondente
         } else {
             int b = desempilha(P);
             int a = desempilha(P);
@@ -89,10 +89,10 @@ int main(void) {
     char e[513];
     printf("Infixa? ");
     gets(e);
-    
+
     char *posfixa_expr = posfixa(e);
     printf("Posfixa: %s\n", posfixa_expr);
     printf("Resultado: %d\n", avalia_posfixa(posfixa_expr));
-    
+
     return 0;
 }

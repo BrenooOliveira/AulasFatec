@@ -1,11 +1,11 @@
 /*
  * Pergunte a um usuário a sua idade e se ele sabe ler e escrever.
- * 
+ *
  * caso a idade for maior que 18 anos e ele souber ler e escrever,
  * imprima na tela "Pode tirar carteira de habilitação".
  * Caso contrário, imprima "Não apto".
- * 
- * 
+ *
+ *
  */
 import java.util.Scanner;
 

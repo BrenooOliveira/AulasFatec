@@ -78,7 +78,7 @@ public class UrnaEletronica {
             } else {
             // O voto é em branco
             this.votosEmBranco++;
-            }   
+            }
 
         }
 

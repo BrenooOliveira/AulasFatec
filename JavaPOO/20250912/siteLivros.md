@@ -132,6 +132,6 @@ direction TB
 	ItemCarrinho "1" --> "1"Produto
 	Produto "1"--o "1"EstoqueProduto
     CarrinhoCompras "0" --* "1" Venda
-    Venda "1" --o "1..n"Pagamento    
+    Venda "1" --o "1..n"Pagamento
 
 ```

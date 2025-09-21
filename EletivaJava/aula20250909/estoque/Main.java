@@ -31,11 +31,11 @@ public class Main {
 
             inventario.soldProductFromIndex(product, unitsSold);
             System.out.println("✅ Venda realizada com sucesso!\n");
-        } 
+        }
         inventario.salesReport();
 
     }
-    
+
 
 
 }

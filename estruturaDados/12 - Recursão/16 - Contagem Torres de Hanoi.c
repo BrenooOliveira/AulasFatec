@@ -7,7 +7,7 @@
 
 int h(int n){
     if(n == 1) return 1; // se for um disco, um movimento
-    return 2*h(n-1)+1; 
+    return 2*h(n-1)+1;
 }
 
 

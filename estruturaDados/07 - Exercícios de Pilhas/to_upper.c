@@ -13,10 +13,10 @@ int main(void) {
     char s[256];       // Declara um array de caracteres para armazenar a entrada do usuário
     Fila F = fila(256); // Cria uma fila com capacidade para 256 elementos
     Pilha P = pilha(256); // Cria uma pilha com capacidade para 256 elementos
-    
+
     // Solicita ao usuário que insira uma frase
     printf("\nFrase? ");
-    gets(s);  
+    gets(s);
     strMaiuscula(s);
     printf("maiuscula: %s",s);
 }

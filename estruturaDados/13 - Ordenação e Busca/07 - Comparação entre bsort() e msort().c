@@ -13,8 +13,8 @@ void preenche(int v[], int n, int s) {
 
 // Função para trocar dois elementos no vetor
 void troca(int v[], int i, int j) {
-    int temp = v[i]; 
-    v[i] = v[j]; 
+    int temp = v[i];
+    v[i] = v[j];
     v[j] = temp;
 }
 
@@ -74,7 +74,7 @@ int main(void) {
     double t, b, m; // Variáveis para armazenar os tempos
 
     puts("     n   bsort  msort");
-    
+
     for (int n = 10000; n <= 100000; n += 10000) {
         preenche(v, n, 42); // Preenche o vetor com a mesma sequência aleatória
         t = clock();

@@ -19,7 +19,7 @@ Fila fila(int m) {
    F->max    = m;
    F->total  = 0;
    F->inicio = 0;
-   F->final  = 0; 
+   F->final  = 0;
    F->item   = malloc(m*sizeof(Itemf));
    return F;
 }

@@ -35,9 +35,9 @@
 
         // Percorre a string de entrada (expressão infixa)
         for (int i = 0; e[i]; i++) {
-            if (e[i] == '(')  
+            if (e[i] == '(')
                 empilha('(', P); // Se for um parêntese de abertura, empilha
-            else if (isdigit(e[i]))  
+            else if (isdigit(e[i]))
                 s[j++] = e[i]; // Se for um número, adiciona diretamente à saída
             else if (strchr("+-/*", e[i])) { // Se for um operador
                 // Desempilha operadores de maior ou igual precedência e adiciona à saída
@@ -45,7 +45,7 @@
                     s[j++] = desempilha(P);
                 empilha(e[i], P); // Empilha o operador atual
             }
-            else if (e[i] == ')') { 
+            else if (e[i] == ')') {
                 // Se for um parêntese de fechamento, desempilha até encontrar '('
                 while (topo(P) != '(')
                     s[j++] = desempilha(P);
@@ -67,7 +67,7 @@
         Pilha P = pilha(tamanho);
         char *s = malloc(strlen(e) + 1); // Vetor para armazenar a expressão pós-fixa
         int j = 0; // Índice para inserção no vetor s
-        
+
         for(int i = 0; e[i]; i++){ // para cada elemento da expressão
             if(e[i] == '('){
                 empilha(')',P);
@@ -91,7 +91,7 @@
     int main(void) {
         char e[513] = "(1*2)+3";
 
-        
+
         char *posfixa_expr = posfixa(e);
 
         char *invertida = inverte_infixa(e); // invertemos a infixa
@@ -103,7 +103,7 @@
 
         printf("Posfixa: %s\n", posfixa_expr);
         printf("Posfixa Invertida: %s\n", _strrev(posfixa_expr_invertida));
-        
+
 
 
         return 0;

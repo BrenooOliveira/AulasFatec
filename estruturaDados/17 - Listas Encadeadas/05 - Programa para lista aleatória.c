@@ -63,8 +63,8 @@ Lista aleatoria(int n, int max) {
         int x = rand() % max; // Gera um número aleatório entre 0 e max-1
         L = no(x, L); // Insere o número na lista
     }
-    return L; 
-}   
+    return L;
+}
 
 
 int main(void) {

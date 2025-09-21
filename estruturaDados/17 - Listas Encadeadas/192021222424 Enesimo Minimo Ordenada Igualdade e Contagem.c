@@ -47,7 +47,7 @@ Item nth(int n, Lista L) {
         exit(1);
     }
     return nth(n - 1, L->prox);        // Chama recursivamente para o próximo nó
-    
+
 }
 
 // Função recursiva que devolve o menor item da lista
@@ -79,7 +79,7 @@ int equal(Lista A, Lista B) {
 // Conta quantas vezes x aparece na lista
 int count(Item x, Lista L) {
     if (L == NULL) return 0; // Caso base: lista vazia
-    return (L->item == x ? 1 : 0) + count(x, L->prox); // Conta o restante  
+    return (L->item == x ? 1 : 0) + count(x, L->prox); // Conta o restante
 }
 
 // Cria nova lista substituindo x por y
@@ -88,8 +88,8 @@ int count(Item x, Lista L) {
 // Se y for igual a x, não faz nada
 Lista replace(Item x, Item y, Lista L) {
     if (L == NULL) return NULL; // Caso base: lista vazia
-    Item novoValor = (L->item == x) ? y : L->item; // Substitui x por y  
-    return no(novoValor, replace(x, y, L->prox)); 
+    Item novoValor = (L->item == x) ? y : L->item; // Substitui x por y
+    return no(novoValor, replace(x, y, L->prox));
 }
 
 // Gera lista de tamanho n com números aleatórios entre 0 e max-1
@@ -102,7 +102,7 @@ Lista rnd(int n, int max) {
 int main(void) {
     srand(time(NULL));
 
-    Lista L = no(1, no(2, no(3, no(4, no(5, NULL))))); 
+    Lista L = no(1, no(2, no(3, no(4, no(5, NULL)))));
     printf("Lista: ");
     exibeComColchetes(L);
 

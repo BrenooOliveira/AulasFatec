@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         String cpf = "33410781005"; // Exemplo de CPF válido
-        ArrayList<Integer> produtoSequencia = new ArrayList<>(); 
+        ArrayList<Integer> produtoSequencia = new ArrayList<>();
 
         /* ------------------ INICIO PRIMEIRO DIGITO ------------------ */
         // pegar os 9 primeiros digitos (sem os DV)

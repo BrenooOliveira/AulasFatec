@@ -8,7 +8,7 @@ public class Churrasco {
     void consumoTotal(int numConvidados){
         if (numConvidados <= 0){
             System.out.println("O número de convidados deve ser maior que 1.");
-            return; 
+            return;
         }
 
         int numGarrafas = (int) Math.ceil((numConvidados * (double) mlCervejaPessoa) / mlGarrafa); // quantas garrafas são necessárias.

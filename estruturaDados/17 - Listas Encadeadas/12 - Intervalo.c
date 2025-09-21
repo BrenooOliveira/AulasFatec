@@ -53,7 +53,7 @@ void exibeComColchetes(Lista L) {
 
 
 int main(void) {
-    Lista L = intervalo(-2, 3);  
+    Lista L = intervalo(-2, 3);
     printf("Lista gerada: ");
     exibeComColchetes(L);
     return 0;

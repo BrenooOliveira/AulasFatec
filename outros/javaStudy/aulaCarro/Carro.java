@@ -5,13 +5,13 @@ public class Carro{
     String marca;
     String modelo;
     int ano;
-    int velocidade; 
+    int velocidade;
 
     // Métodos
     void acelerar(int aceleracao){
         velocidade += aceleracao;
     }
-    
+
     void frear(int frenagem){
         velocidade -= frenagem;
     }

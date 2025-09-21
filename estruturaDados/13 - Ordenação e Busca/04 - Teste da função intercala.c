@@ -20,7 +20,7 @@ void exibe(int v[], int n) {
 // Função que intercala duas partes ordenadas de um vetor
 void intercala(int v[], int p, int m, int u) {
     // Criamos um vetor temporário 'w' para armazenar os elementos intercalados
-    int *w = malloc((u - p + 1) * sizeof(int)); 
+    int *w = malloc((u - p + 1) * sizeof(int));
 
     // Índices auxiliares para percorrer cada parte do vetor
     int i = p, j = m + 1, k = 0;
