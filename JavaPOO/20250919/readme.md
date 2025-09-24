@@ -5,21 +5,21 @@ O sistema terá como tema o gerenciamento de uma loja de conserto de celulares, 
 
 ## Funcionalidades Principais
 
-- Gestão de Ordens de Serviço (OS)
+- Gestão de Ordens de Serviço (OS) 🚧
 
-- Abertura de uma nova OS com dados do cliente e do aparelho.
+- Abertura de uma nova OS com dados do cliente e do aparelho. 🚧
 
-- Registro do status da OS (em andamento, concluída, aguardando peça, entregue).
+- Registro do status da OS (em andamento, concluída, aguardando peça, entregue). 🚧
 
 - Controle de previsão de entrega.
 
-- Associação de peças e serviços utilizados na OS.
+- Associação de peças e serviços utilizados na OS. 🚧
 
 - Cálculo do valor total da ordem.
 
-- Cadastro de Clientes
+- Cadastro de Clientes ✅
 
-- Registro de informações básicas: nome, telefone, e-mail.
+- Registro de informações básicas: nome, telefone, e-mail. ✅
 
 - Associação de aparelhos pertencentes ao cliente.
 
