@@ -4,7 +4,7 @@ v1: 21/09/2025: Necessário estar em uma só classe.
 
 # Requisitos do Cadastro de Cliente
 
-## Requisitos Funcionais (RF)
+## Requisitos Funcionaism (RF)
 
 - **RF01**: O sistema deve possibilitar o registro de clientes.
 - **RF02**: O sistema deve possibilitar que dados de um cliente cadastrado sejam alterados.
