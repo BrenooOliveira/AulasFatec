@@ -173,5 +173,35 @@ public class ClienteDAO {
         }
     }
 
+    /**
+     * Lista as OS específico pelo ID
+     * @param idCliente ID do cliente a ser buscado
+     */
+    public static void getOSperClient(int idCliente) {
+        String sql = "SELECT * FROM clientes WHERE id_cliente = ?";
+        try (Connection conn = ConexaoDB.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Define o parâmetro do PreparedStatement
+            stmt.setInt(1, idCliente);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                System.out.println("\n=== CLIENTE ESPECÍFICO ===");
+                if (rs.next()) {
+                    System.out.println(
+                        "ID: " + rs.getInt("id_cliente") +
+                        " | Nome: " + rs.getString("nome") +
+                        " | Telefone: " + rs.getString("telefone") +
+                        " | Email: " + rs.getString("email")
+                    );
+                } else {
+                    System.out.println("Nenhum cliente encontrado com o ID " + idCliente);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar cliente: " + e.getMessage());
+        }
+    }
 
 }

@@ -1,17 +1,3 @@
-para abrir uma os, eu preciso:
-cliente
-produto
-PeçasUtilizadas (F_ITENS_ORDEM_SERVICO):
-	- abrir OS -> inserir no BD
-	- pegar idOs do BD -> Inserir produtos
-
-
-
-usuario:
-	insere cliente e produto
-	(cria OS no BD e puxa o ID dela)
-	usuario insere peças a serem utilizadas e inserimos cada item/qtde no (F_ITENS_ORDEM_SERVICO)
-
 # Documento de Escopo – Loja de Conserto de Celulares
 ## Tema do Programa
 
@@ -39,11 +25,11 @@ O sistema terá como tema o gerenciamento de uma loja de conserto de celulares, 
 
 - Histórico de ordens de serviço vinculadas ao cliente. 🚧
 
-- Cadastro e Controle de Aparelhos
+- Cadastro e Controle de Aparelhos ✅
 
-- Registro de aparelhos por cliente.
+- Registro de aparelhos por cliente. ✅
 
-- Dados como marca, modelo, categoria e IMEI.
+- Dados como marca, modelo, categoria e IMEI. ✅
 
 - Situação atual (em conserto, aguardando retirada, entregue).
 

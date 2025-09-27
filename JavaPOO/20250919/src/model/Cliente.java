@@ -32,6 +32,10 @@ public class Cliente {
         ClienteDAO.listSpecificClient(id_cliente);;
     }
 
+    // public static void consultarOSCliente(int id_cliente) {
+    //     ClienteDAO.getOSperClient(id_cliente);;
+    // }
+
 
 
 

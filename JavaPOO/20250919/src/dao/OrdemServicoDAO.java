@@ -147,6 +147,65 @@ public class OrdemServicoDAO {
             System.out.println("Erro ao excluir ordem de serviço: " + e.getMessage());
         }
     }
+    /**
+     * Lista todas as OS vinculadas a um cliente, incluindo os itens de cada OS
+     * @param idCliente ID do cliente a ser buscado
+     */
+    public static void getOSperClient(int idCliente) {
+        String sql = "SELECT os.id_os, os.id_cliente, os.valor_total, os.status, os.criado_em, os.prev_entrega, " +
+                    "       ios.id_produto, ios.qtde " +
+                    "FROM ordem_servico os " +
+                    "LEFT JOIN itens_ordem_servico ios ON os.id_os = ios.id_os " +
+                    "WHERE os.id_cliente = ? " +
+                    "ORDER BY os.id_os;";
+
+        try (Connection conn = ConexaoDB.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idCliente);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                System.out.println("\n=== OSs VINCULADAS AO CLIENTE ===");
+
+                int lastOsId = -1; // guarda a última OS impressa
+                boolean encontrou = false;
+
+                while (rs.next()) {
+                    encontrou = true;
+                    int osId = rs.getInt("id_os");
+
+                    // Só imprime cabeçalho da OS quando muda de id
+                    if (osId != lastOsId) {
+                        System.out.println("\n--------------------------------");
+                        System.out.println("OS: " + osId +
+                                " | Cliente: " + rs.getInt("id_cliente") +
+                                " | Valor: R$ " + rs.getDouble("valor_total") +
+                                " | Status: " + rs.getString("status") +
+                                " | Criado em: " + rs.getString("criado_em") +
+                                " | Prev. Entrega: " + rs.getString("prev_entrega"));
+                        System.out.println("Itens:");
+                        lastOsId = osId;
+                    }
+
+                    int idProduto = rs.getInt("id_produto");
+                    int qtde = rs.getInt("qtde");
+
+                    // Só imprime itens se houverem (LEFT JOIN pode retornar null)
+                    if (idProduto > 0) {
+                        System.out.println("   - Produto ID: " + idProduto + " | Qtde: " + qtde);
+                    }
+                }
+
+                if (!encontrou) {
+                    System.out.println("Nenhuma OS encontrada para o cliente ID " + idCliente);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar OSs do cliente: " + e.getMessage());
+        }
+    }
+
 
 
 

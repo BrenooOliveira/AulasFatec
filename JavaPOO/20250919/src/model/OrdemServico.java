@@ -30,5 +30,10 @@ public class OrdemServico {
         return id_os_gerado;
     }
 
+    public static void consultarOSCliente(int id_cliente) {
+        OrdemServicoDAO.getOSperClient(id_cliente);;
+    }
+
+
 
 }
