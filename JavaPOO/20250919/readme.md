@@ -1,3 +1,17 @@
+para abrir uma os, eu preciso:
+cliente
+produto
+PeçasUtilizadas (F_ITENS_ORDEM_SERVICO):
+	- abrir OS -> inserir no BD
+	- pegar idOs do BD -> Inserir produtos
+
+
+
+usuario:
+	insere cliente e produto
+	(cria OS no BD e puxa o ID dela)
+	usuario insere peças a serem utilizadas e inserimos cada item/qtde no (F_ITENS_ORDEM_SERVICO)
+
 # Documento de Escopo – Loja de Conserto de Celulares
 ## Tema do Programa
 
@@ -5,25 +19,25 @@ O sistema terá como tema o gerenciamento de uma loja de conserto de celulares, 
 
 ## Funcionalidades Principais
 
-- Gestão de Ordens de Serviço (OS) 🚧
+- Gestão de Ordens de Serviço (OS) ✅
 
-- Abertura de uma nova OS com dados do cliente e do aparelho. 🚧
+- Abertura de uma nova OS com dados do cliente e do aparelho. ✅
 
-- Registro do status da OS (em andamento, concluída, aguardando peça, entregue). 🚧
+- Registro do status da OS (em andamento, concluída, aguardando peça, entregue).
 
-- Controle de previsão de entrega.
+- Controle de previsão de entrega. ✅
 
-- Associação de peças e serviços utilizados na OS. 🚧
+- Associação de peças e serviços utilizados na OS. ✅
 
 - Cálculo do valor total da ordem.
 
-- Cadastro de Clientes ✅
+- Cadastro de Clientes 🚧
 
-- Registro de informações básicas: nome, telefone, e-mail. ✅
+- Registro de informações básicas: nome, telefone, e-mail. 🚧
 
-- Associação de aparelhos pertencentes ao cliente.
+- Associação de aparelhos pertencentes ao cliente. 🚧
 
-- Histórico de ordens de serviço vinculadas ao cliente.
+- Histórico de ordens de serviço vinculadas ao cliente. 🚧
 
 - Cadastro e Controle de Aparelhos
 
