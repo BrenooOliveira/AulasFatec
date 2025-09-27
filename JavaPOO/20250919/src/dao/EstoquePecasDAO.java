@@ -57,7 +57,7 @@ public class EstoquePecasDAO {
 
             while (rs.next()) {
                 System.out.println(
-                    rs.getInt("id_produto") + " | " +
+                    rs.getInt("id_produto   ") + " | " +
                     rs.getString("nome_peca") + " | R$ " +
                     rs.getDouble("qtd_estoque") + " | R$ " +
                     rs.getDouble("qtd_prevista")

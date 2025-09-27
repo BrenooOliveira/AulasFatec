@@ -31,11 +31,11 @@ O sistema terá como tema o gerenciamento de uma loja de conserto de celulares, 
 
 - Cálculo do valor total da ordem.
 
-- Cadastro de Clientes 🚧
+- Cadastro de Clientes ✅
 
-- Registro de informações básicas: nome, telefone, e-mail. 🚧
+- Registro de informações básicas: nome, telefone, e-mail. ✅
 
-- Associação de aparelhos pertencentes ao cliente. 🚧
+- Associação de aparelhos pertencentes ao cliente. ✅
 
 - Histórico de ordens de serviço vinculadas ao cliente. 🚧
 
