@@ -1,0 +1,26 @@
+cells:
+  - kind: 2
+    value: alter session set "ORACLE_SCRIPT" = TRUE;
+    languageId: oracle-sql
+  - kind: 2
+    value: CREATE USER APP IDENTIFIED BY APP123 QUOTA UNLIMITED ON USERS;
+    languageId: oracle-sql
+  - kind: 2
+    value: GRANT CONNECT, RESOURCE TO APP;
+    languageId: oracle-sql
+  - kind: 2
+    value: "@/home/breno-oliveira/bd_completo.sql"
+    languageId: oracle-sql
+  - kind: 2
+    value: |
+      SELECT username FROM all_users ORDER BY username;
+    languageId: oracle-sql
+  - kind: 2
+    value: |
+      SELECT owner, table_name FROM all_tables
+      WHERE table_name IN ('CLIENTES','PRODUTOS','VENDAS');
+    languageId: oracle-sql
+  - kind: 2
+    value: |
+      SELECT username FROM user_users;
+    languageId: oracle-sql
