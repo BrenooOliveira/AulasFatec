@@ -1,84 +1,119 @@
 ```mermaid
+---
+config:
+  layout: elk
+---
 classDiagram
-direction TB
 
-%% ==== Interfaces ====
-class IDAO {
-  <<interface>>
-  +escrever()
-  +consultar()
-  +deletar()
-  +atualizar()
+%% ================================
+%% 📘 CAMADA MODEL
+%% ================================
+class  EmprestimoModel {
+    <<model>>
+    - int id
+    - Livro livro
+    - Usuario usuario
+    - Date dataEmprestimo
+    - Date dataDevolucao
+    + getters/setters()
 }
 
-class ILivro {
-  <<interface>>
-  +getTitulo()
-  +getAutor()
-  +isDisponivel()
+class  LivroModel {
+    <<model>>
+    - int idLivro
+    - String nomeLivro
+    - String tipoLivro
+    - Date dtCadastro
 }
 
-class IUsuario {
-  <<interface>>
-  +calcularMulta(emprestimoId)
+EmprestimoModel --> LivroModel : "refere-se a"
+
+%% ================================
+%% ⚙️ CAMADA CONTEXT / STRATEGY - EMPRÉSTIMO
+%% ================================
+class  IEmprestimoStrategy {
+    <<interface>>
+    + emprestimo()
 }
 
-class IEmprestimo {
-  <<interface>>
-  +emprestar(emprestimoId)
-  +devolver(emprestimoId)
+class  EmprestimoContext {
+    <<context>>
+    - IEmprestimoStrategy strategy
+    + setEmprestimoStrategy()
 }
 
-%% ==== Entidades ====
-class LivroFisico {
-  int idLivro
-  String autor
-  String titulo
-  int estoque
-}
-
-class Ebook {
-  int idLivro
-  String autor
-  String titulo
-}
-
-class Aluno {
-  int idUsuario
-  String nome
-  String matricula
-}
-
-class Professor {
-  int idUsuario
-  String nome
-  String matricula
+class Devolucao {
+    + emprestimo() %% devolve
 }
 
 class Emprestimo {
-  int emprestimoID
-  String flagTpMovimentacao
-  Date dataEmprestimo
-  Date dataDevolucao
+    + emprestimo() %% empresta
 }
 
-%% ==== DAOs ====
-class LivroDAO
-class UsuarioDAO
+EmprestimoContext *-- IEmprestimoStrategy
+Devolucao ..> IEmprestimoStrategy
+Emprestimo ..> IEmprestimoStrategy
+
+%% ================================
+%% ⚙️ CAMADA CONTEXT / STRATEGY - MULTA
+%% ================================
+class  ICalcularMultaStrategy {
+    <<interface>>
+    + calcular()
+}
+
+class  CalcularMultaContext {
+    <<context>>
+    - ICalcularMultaStrategy strategy
+    + setCalcularMultaStrategy()
+}
+
+class CalcularMultaProfessor
+class CalcularMultaAluno
+
+CalcularMultaContext *-- ICalcularMultaStrategy
+ICalcularMultaStrategy <.. CalcularMultaProfessor
+ICalcularMultaStrategy <.. CalcularMultaAluno
+
+%% ================================
+%% 🧩 CAMADA DAO
+%% ================================
+class  IDAO {
+    <<interface>>
+    + criar()
+    + atualizar()
+    + consultar()
+    + deletar()
+}
+
 class EmprestimoDAO
+class LivroDAO
 
-%% ==== Implementações ====
-LivroFisico ..|> ILivro
-Ebook ..|> ILivro
-Aluno ..|> IUsuario
-Professor ..|> IUsuario
-LivroDAO ..|> IDAO
-UsuarioDAO ..|> IDAO
-EmprestimoDAO ..|> IDAO
-Emprestimo ..|> IEmprestimo
+EmprestimoDAO ..> IDAO
+LivroDAO ..> IDAO
+EmprestimoDAO --> EmprestimoModel
+LivroDAO --> LivroModel
 
-%% ==== Relações ====
-IUsuario --o Emprestimo : 1 para 1..*
-ILivro --o Emprestimo : 0..1 para 1..*
+%% ================================
+%% 🎯 CAMADA CONTROLLER
+%% ================================
+class  EmprestimoController {
+    <<controller>>
+    + realizarEmprestimo()
+    + realizarDevolucao()
+}
+
+class  LivroController {
+    <<controller>>
+    + calcularMultaContext()
+}
+
+EmprestimoController o-- EmprestimoContext
+EmprestimoDAO --o EmprestimoController
+EmprestimoController ..> EmprestimoModel
+
+LivroDAO --o LivroController
+LivroController ..> LivroModel
+LivroController o-- CalcularMultaContext
 
 ```
