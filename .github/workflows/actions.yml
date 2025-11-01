@@ -1,0 +1,34 @@
+name: My first GitHub Actions
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Repo Informations
+        run: |
+          echo "Rodando GitHub Actions no repositório: $GITHUB_REPOSITORY"
+          echo "Commit atual: $GITHUB_SHA"
+          echo "Branch: $GITHUB_REF"
+
+      - name: Show Tools
+        run: |
+          echo "=== Verificando versões ==="
+          python3 --version || echo "Python não instalado"
+          java -version || echo "Java não instalado"
+          node -v || echo "Node não instalado"
+          echo "==========================="
+
+      - name: Python script test
+        run: |
+          echo "print('Olá do GitHub Actions!')" > test.py
+          python3 test.py
