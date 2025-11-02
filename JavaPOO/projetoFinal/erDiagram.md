@@ -20,6 +20,7 @@ erDiagram
         STRING tp_cliente "flag: aluno ou professor"
         DATE dt_emprestimo
         DATE dt_devolucao
+        STRING status  "devolucao: D | emprestado: E"
 
     }
 
