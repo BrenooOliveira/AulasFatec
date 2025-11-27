@@ -1,0 +1,87 @@
+-- SETOR
+INSERT INTO SETOR (idSetor, nome) VALUES (1, 'Clínica Geral');
+INSERT INTO SETOR (idSetor, nome) VALUES (2, 'Pediatria');
+INSERT INTO SETOR (idSetor, nome) VALUES (3, 'Enfermagem');
+INSERT INTO SETOR (idSetor, nome) VALUES (4, 'Administrativo');
+INSERT INTO SETOR (idSetor, nome) VALUES (5, 'Financeiro');
+
+-- CARGO
+INSERT INTO CARGO (idCargo, nome, idSetor) VALUES (1, 'Médico', 1);
+INSERT INTO CARGO (idCargo, nome, idSetor) VALUES (2, 'Pediatra', 2);
+INSERT INTO CARGO (idCargo, nome, idSetor) VALUES (3, 'Enfermeiro', 3);
+INSERT INTO CARGO (idCargo, nome, idSetor) VALUES (4, 'Recepcionista', 4);
+INSERT INTO CARGO (idCargo, nome, idSetor) VALUES (5, 'Assistente Financeiro', 5);
+
+-- FUNCIONARIO
+INSERT INTO FUNCIONARIO
+(matricula, cpf, nome, dataNascimento, rg, sexo, endereco, telefone, email, tipoFuncionario, crm, idCargo)
+VALUES
+(1001, '12345678901', 'Ana Paula Medeiros', DATE '1986-04-12', 'MG1234567', 'F', 'Rua A, 100', '31990001122', 'ana@clinic.com', 'Medico', 'CRM12345', 1);
+INSERT INTO FUNCIONARIO
+VALUES
+(1002, '98765432100', 'Bruno Henrique Silva', DATE '1990-08-20', 'MG9876543', 'M', 'Rua B, 55', '31991110000', 'bruno@clinic.com', 'Pediatra', 'CRM67890', 2);
+INSERT INTO FUNCIONARIO
+VALUES
+(1003, '22233344455', 'Carla Souza', DATE '1995-02-15', 'MG7654321', 'F', 'Rua C, 230', '3199556677', 'carla@clinic.com', 'Enfermeiro', NULL, 3);
+INSERT INTO FUNCIONARIO
+VALUES
+(1004, '33344455566', 'Diego Andrade', DATE '1988-11-11', 'MG5463728', 'M', 'Rua D, 450', '3199887766', 'diego@clinic.com', 'Recepcionista', NULL, 4);
+INSERT INTO FUNCIONARIO
+VALUES
+(1005, '11122233344', 'Fernanda Lima', DATE '1992-09-30', 'MG6781234', 'F', 'Rua E, 999', '31990002233', 'fer@clinic.com', 'Financeiro', NULL, 5);
+
+-- CONTRATO
+INSERT INTO CONTRATO
+(idContrato, dataAdmissao, salario, tipoContrato, crm, hierarquia, matriculaFuncionario)
+VALUES
+(1, DATE '2015-03-01', 15000.00, 'CLT', 'CRM12345', '["Médico", "Senior"]', 1001);
+INSERT INTO CONTRATO VALUES
+(2, DATE '2016-01-15', 14000.00, 'CLT', 'CRM67890', '["Pediatra"]', 1002);
+INSERT INTO CONTRATO VALUES
+(3, DATE '2018-05-20', 7000.00, 'CLT', NULL, '["Enfermeiro"]', 1003);
+INSERT INTO CONTRATO VALUES
+(4, DATE '2020-02-10', 3000.00, 'CLT', NULL, '["Recepcionista"]', 1004);
+INSERT INTO CONTRATO VALUES
+(5, DATE '2019-11-01', 5000.00, 'CLT', NULL, '["Financeiro"]', 1005);
+
+-- HISTORICO_SALARIO
+INSERT INTO HISTORICO_SALARIO VALUES (1, DATE '2020-01-01', 14000.00, 1);
+INSERT INTO HISTORICO_SALARIO VALUES (2, DATE '2022-01-01', 15000.00, 1);
+INSERT INTO HISTORICO_SALARIO VALUES (3, DATE '2021-05-10', 13000.00, 2);
+INSERT INTO HISTORICO_SALARIO VALUES (4, DATE '2023-06-20', 14000.00, 2);
+INSERT INTO HISTORICO_SALARIO VALUES (5, DATE '2019-06-15', 6000.00, 3);
+INSERT INTO HISTORICO_SALARIO VALUES (6, DATE '2021-06-15', 7000.00, 3);
+
+-- ESCALA
+INSERT INTO ESCALA VALUES (1, DATE '2025-02-01', '08:00', '16:00', 'Fixa', 1001);
+INSERT INTO ESCALA VALUES (2, DATE '2025-02-01', '16:00', '22:00', 'Fixa', 1003);
+INSERT INTO ESCALA VALUES (3, DATE '2025-02-01', '08:00', '14:00', 'Plantao', 1002);
+
+-- FERIAS_AFAST
+INSERT INTO FERIAS_AFAST VALUES (1, 'Ferias', DATE '2024-12-01', DATE '2024-12-30', 'Férias regulares', 1001);
+INSERT INTO FERIAS_AFAST VALUES (2, 'Afastamento', DATE '2024-10-10', DATE '2024-10-25', 'Doença', 1003);
+
+
+-- DEPENDENTE
+INSERT INTO DEPENDENTE VALUES
+(1, 'Lucas Medeiros', '55566677788', 'Filho', DATE '2010-05-12', 1001);
+INSERT INTO DEPENDENTE VALUES
+(2, 'Mariana Souza', '99988877766', 'Filha', DATE '2015-08-02', 1003);
+INSERT INTO DEPENDENTE VALUES
+(3, 'João Pedro Lima', '44455566677', 'Filho', DATE '2018-12-25', 1005);
+
+-- PERFIL
+INSERT INTO PERFIL VALUES (1, 'Administrador');
+INSERT INTO PERFIL VALUES (2, 'RH');
+INSERT INTO PERFIL VALUES (3, 'Medico');
+INSERT INTO PERFIL VALUES (4, 'Financeiro');
+
+-- USUARIO
+INSERT INTO USUARIO VALUES
+(1, 'ana.admin', 'HASH123', 1);
+INSERT INTO USUARIO VALUES
+(2, 'carla.rh', 'HASH456', 2);
+INSERT INTO USUARIO VALUES
+(3, 'drbruno', 'HASH789', 3);
+INSERT INTO USUARIO VALUES
+(4, 'fernanda.fin', 'HASH000', 4);
