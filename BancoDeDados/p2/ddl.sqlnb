@@ -1,0 +1,152 @@
+cells:
+  - kind: 1
+    value: "# Setup"
+    languageId: markdown
+  - kind: 2
+    value: ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE
+    languageId: oracle-sql
+  - kind: 2
+    value: CREATE USER RH IDENTIFIED BY RH123 QUOTA UNLIMITED ON USERS;
+    languageId: oracle-sql
+  - kind: 2
+    value: GRANT CONNECT, RESOURCE, CREATE VIEW TO RH;
+    languageId: oracle-sql
+  - kind: 2
+    value: CONNECT RH/RH123
+    languageId: oracle-sql
+  - kind: 1
+    value: "# DDL"
+    languageId: markdown
+  - kind: 2
+    value: |
+      ---------------------------------------------------------
+      -- SETOR
+      ---------------------------------------------------------
+      CREATE TABLE SETOR (
+          idSetor NUMBER PRIMARY KEY,
+          nome VARCHAR2(100) NOT NULL
+      );
+
+      ---------------------------------------------------------
+      -- CARGO
+      ---------------------------------------------------------
+      CREATE TABLE CARGO (
+          idCargo NUMBER PRIMARY KEY,
+          nome VARCHAR2(100) NOT NULL,
+          idSetor NUMBER NOT NULL,
+          CONSTRAINT fk_cargo_setor FOREIGN KEY (idSetor)
+              REFERENCES SETOR(idSetor)
+      );
+
+      ---------------------------------------------------------
+      -- FUNCIONARIO
+      ---------------------------------------------------------
+      CREATE TABLE FUNCIONARIO (
+          matricula NUMBER PRIMARY KEY,
+          cpf VARCHAR2(11) UNIQUE NOT NULL,
+          nome VARCHAR2(150) NOT NULL,
+          dataNascimento DATE NOT NULL,
+          rg VARCHAR2(20),
+          sexo CHAR(1),
+          endereco VARCHAR2(255),
+          telefone VARCHAR2(20),
+          email VARCHAR2(150),
+          tipoFuncionario VARCHAR2(50),
+          crm VARCHAR2(20),
+          idCargo NUMBER NOT NULL,
+          CONSTRAINT fk_func_cargo FOREIGN KEY (idCargo)
+              REFERENCES CARGO(idCargo)
+      );
+
+      ---------------------------------------------------------
+      -- CONTRATO
+      ---------------------------------------------------------
+      CREATE TABLE CONTRATO (
+          idContrato NUMBER PRIMARY KEY,
+          dataAdmissao DATE NOT NULL,
+          salario NUMBER(10,2) NOT NULL,
+          tipoContrato VARCHAR2(20),
+          crm VARCHAR2(20),
+          hierarquia CLOB,
+          matriculaFuncionario NUMBER NOT NULL,
+          CONSTRAINT fk_contrato_funcionario FOREIGN KEY (matriculaFuncionario)
+              REFERENCES FUNCIONARIO(matricula)
+      );
+
+      ---------------------------------------------------------
+      -- HISTORICO SALARIO
+      ---------------------------------------------------------
+      CREATE TABLE HISTORICO_SALARIO (
+          idHist NUMBER PRIMARY KEY,
+          dataAlteracao DATE NOT NULL,
+          salario NUMBER(10,2) NOT NULL,
+          idContrato NUMBER NOT NULL,
+          CONSTRAINT fk_hist_contrato FOREIGN KEY (idContrato)
+              REFERENCES CONTRATO(idContrato)
+      );
+
+      ---------------------------------------------------------
+      -- ESCALA
+      ---------------------------------------------------------
+      CREATE TABLE ESCALA (
+          idEscala NUMBER PRIMARY KEY,
+          data DATE NOT NULL,
+          horaInicio VARCHAR2(5),
+          horaFim VARCHAR2(5),
+          tipoEscala VARCHAR2(20),
+          matriculaFuncionario NUMBER NOT NULL,
+          CONSTRAINT fk_escala_func FOREIGN KEY (matriculaFuncionario)
+              REFERENCES FUNCIONARIO(matricula)
+      );
+
+      ---------------------------------------------------------
+      -- FERIAS / AFASTAMENTO
+      ---------------------------------------------------------
+      CREATE TABLE FERIAS_AFAST (
+          idPeriodo NUMBER PRIMARY KEY,
+          tipo VARCHAR2(20),
+          dataInicio DATE NOT NULL,
+          dataFim DATE NOT NULL,
+          motivo VARCHAR2(200),
+          matriculaFuncionario NUMBER NOT NULL,
+          CONSTRAINT fk_afast_func FOREIGN KEY (matriculaFuncionario)
+              REFERENCES FUNCIONARIO(matricula)
+      );
+
+      ---------------------------------------------------------
+      -- DEPENDENTE
+      ---------------------------------------------------------
+      CREATE TABLE DEPENDENTE (
+          idDependente NUMBER PRIMARY KEY,
+          nome VARCHAR2(150) NOT NULL,
+          cpf VARCHAR2(11) UNIQUE,
+          grauParentesco VARCHAR2(50),
+          dataNascimento DATE,
+          matriculaFuncionario NUMBER NOT NULL,
+          CONSTRAINT fk_dep_func FOREIGN KEY (matriculaFuncionario)
+              REFERENCES FUNCIONARIO(matricula)
+      );
+
+      ---------------------------------------------------------
+      -- PERFIL
+      ---------------------------------------------------------
+      CREATE TABLE PERFIL (
+          idPerfil NUMBER PRIMARY KEY,
+          nome VARCHAR2(50) NOT NULL
+      );
+
+      ---------------------------------------------------------
+      -- USUARIO
+      ---------------------------------------------------------
+      CREATE TABLE USUARIO (
+          idUsuario NUMBER PRIMARY KEY,
+          login VARCHAR2(50) UNIQUE NOT NULL,
+          senhaHash VARCHAR2(200) NOT NULL,
+          idPerfil NUMBER NOT NULL,
+          CONSTRAINT fk_user_perfil FOREIGN KEY (idPerfil)
+              REFERENCES PERFIL(idPerfil)
+      );
+    languageId: oracle-sql
+  - kind: 2
+    value: ""
+    languageId: oracle-sql
