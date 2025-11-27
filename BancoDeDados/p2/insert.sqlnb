@@ -3,6 +3,12 @@ cells:
     value: "# SETOR"
     languageId: markdown
   - kind: 2
+    value: |-
+      SELECT f.nome, c.nome AS cargo
+      FROM funcionario f
+      JOIN cargo c ON f.idcargo = c.idcargo;
+    languageId: oracle-sql
+  - kind: 2
     value: |
       INSERT INTO SETOR (idSetor, nome) VALUES (1, 'Clínica Geral');
       INSERT INTO SETOR (idSetor, nome) VALUES (2, 'Pediatria');
@@ -189,6 +195,12 @@ cells:
 
       INSERT INTO USUARIO VALUES
       (4, 'fernanda.fin', 'HASH000', 4);
+    languageId: oracle-sql
+  - kind: 1
+    value: "# COMMIT"
+    languageId: markdown
+  - kind: 2
+    value: COMMIT;
     languageId: oracle-sql
   - kind: 2
     value: ""

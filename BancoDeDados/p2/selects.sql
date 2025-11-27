@@ -1,0 +1,59 @@
+-- 10 Consultas SQL para o modelo lógico da clínica
+
+-- 1. Listar todos os funcionários e seus cargos
+SELECT f.nome, c.nome AS cargo
+FROM funcionario f
+JOIN cargo c ON f.idcargo = c.idcargo;
+
+-- 2. Funcionários por setor
+SELECT s.nome AS setor, COUNT(f.matricula) AS quantidade
+FROM funcionario f
+JOIN cargo c ON f.idcargo = c.idcargo
+JOIN setor s ON c.idsetor = s.idsetor
+GROUP BY s.nome;
+
+-- 3. Contratos e salários dos funcionários
+SELECT f.nome, ct.salario, ct.tipoContrato
+FROM contrato ct
+JOIN funcionario f ON ct.matriculaFuncionario = f.matricula;
+
+-- 4. Histórico salarial de cada funcionário
+SELECT f.nome, h.salario, h.dataAlteracao
+FROM historico_salario h
+JOIN contrato ct ON h.idContrato = ct.idContrato
+JOIN funcionario f ON ct.matriculaFuncionario = f.matricula
+ORDER BY f.nome, h.dataAlteracao DESC;
+
+-- 5. Dependentes por funcionário
+SELECT f.nome AS funcionario, d.nome AS dependente, d.grauParentesco
+FROM dependente d
+JOIN funcionario f ON d.matriculaFuncionario = f.matricula;
+
+-- 6. Funcionários com escalas futuras
+SELECT f.nome, e.data, e.horaInicio, e.horaFim
+FROM escala e
+JOIN funcionario f ON e.matriculaFuncionario = f.matricula
+WHERE e.data > SYSDATE
+ORDER BY e.data;
+
+-- 7. Funcionários afastados atualmente
+SELECT f.nome, fa.tipo, fa.dataInicio, fa.dataFim
+FROM feriasafast fa
+JOIN funcionario f ON fa.matriculaFuncionario = f.matricula
+WHERE SYSDATE BETWEEN fa.dataInicio AND fa.dataFim;
+
+-- 8. Usuários e seus perfis
+SELECT u.login, p.nome AS perfil
+FROM usuario u
+JOIN perfil p ON u.idPerfil = p.idPerfil;
+
+-- 9. Total de funcionários por tipo (médico, enfermeiro, etc.)
+SELECT tipoFuncionario, COUNT(*) AS quantidade
+FROM funcionario
+GROUP BY tipoFuncionario;
+
+-- 10. Funcionários sem dependentes
+SELECT f.nome
+FROM funcionario f
+LEFT JOIN dependente d ON f.matricula = d.matriculaFuncionario
+WHERE d.idDependente IS NULL;
