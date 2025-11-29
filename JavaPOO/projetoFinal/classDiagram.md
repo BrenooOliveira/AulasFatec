@@ -1,119 +1,80 @@
 ```mermaid
 ---
+r
 config:
-  layout: elk
+  theme: dark
 ---
 classDiagram
+direction LR
+    class Livro {
+	    -int idLivro
+	    -String nomeLivro
+	    -LocalDate dataCadastro
+	    +getters()
+	    +setters()
+    }
+    class Estoque {
+	    -int idLivro
+	    -int quantidade
+	    +getters()
+	    +setters()
+    }
+    class Emprestimo {
+	    -int idEmprestimo
+	    -int idLivro
+	    -String nomeCliente
+	    -String tipoCliente
+	    -LocalDate dtEmprestimo
+	    -LocalDate dtDevolucao
+	    -String status
+	    +getters()
+	    +setters()
+    }
+    class LivroDAO {
+	    +inserir(Livro, Estoque)
+	    +atualizar(Livro, Estoque)
+	    +listar() : List
+	    +deletar(id)
+    }
+    class EmprestimoDAO {
+	    +registrar(Emprestimo)
+	    +listar()
+    }
+    class MultaStrategy {
+	    +double calcularMulta(LocalDate devolucao)
+    }
+    class MultaAluno {
+    }
+    class MultaProfessor {
+    }
+    class BibliotecaFacade {
+	    +adicionarLivro()
+	    +atualizarLivro()
+	    +deletarLivro()
+	    +listarEstoque()
+	    +registrarEmprestimo()
+    }
+    class HomeController {
+	    +initialize()
+	    +onClickAddLivro()
+	    +onClickEditar()
+	    +onClickDeletar()
+	    +carregarTabela()
+    }
+    class HomeViewFXML {
+    }
 
-%% ================================
-%% 📘 CAMADA MODEL
-%% ================================
-class  EmprestimoModel {
-    <<model>>
-    - int id
-    - Livro livro
-    - Usuario usuario
-    - Date dataEmprestimo
-    - Date dataDevolucao
-    + getters/setters()
-}
+	<<interface>> MultaStrategy
 
-class  LivroModel {
-    <<model>>
-    - int idLivro
-    - String nomeLivro
-    - String tipoLivro
-    - Date dtCadastro
-}
-
-EmprestimoModel --> LivroModel : "refere-se a"
-
-%% ================================
-%% ⚙️ CAMADA CONTEXT / STRATEGY - EMPRÉSTIMO
-%% ================================
-class  IEmprestimoStrategy {
-    <<interface>>
-    + emprestimo()
-}
-
-class  EmprestimoContext {
-    <<context>>
-    - IEmprestimoStrategy strategy
-    + setEmprestimoStrategy()
-}
-
-class Devolucao {
-    + emprestimo() %% devolve
-}
-
-class Emprestimo {
-    + emprestimo() %% empresta
-}
-
-EmprestimoContext *-- IEmprestimoStrategy
-Devolucao ..> IEmprestimoStrategy
-Emprestimo ..> IEmprestimoStrategy
-
-%% ================================
-%% ⚙️ CAMADA CONTEXT / STRATEGY - MULTA
-%% ================================
-class  ICalcularMultaStrategy {
-    <<interface>>
-    + calcular()
-}
-
-class  CalcularMultaContext {
-    <<context>>
-    - ICalcularMultaStrategy strategy
-    + setCalcularMultaStrategy()
-}
-
-class CalcularMultaProfessor
-class CalcularMultaAluno
-
-CalcularMultaContext *-- ICalcularMultaStrategy
-ICalcularMultaStrategy <.. CalcularMultaProfessor
-ICalcularMultaStrategy <.. CalcularMultaAluno
-
-%% ================================
-%% 🧩 CAMADA DAO
-%% ================================
-class  IDAO {
-    <<interface>>
-    + criar()
-    + atualizar()
-    + consultar()
-    + deletar()
-}
-
-class EmprestimoDAO
-class LivroDAO
-
-EmprestimoDAO ..> IDAO
-LivroDAO ..> IDAO
-EmprestimoDAO --> EmprestimoModel
-LivroDAO --> LivroModel
-
-%% ================================
-%% 🎯 CAMADA CONTROLLER
-%% ================================
-class  EmprestimoController {
-    <<controller>>
-    + realizarEmprestimo()
-    + realizarDevolucao()
-}
-
-class  LivroController {
-    <<controller>>
-    + calcularMultaContext()
-}
-
-EmprestimoController o-- EmprestimoContext
-EmprestimoDAO --o EmprestimoController
-EmprestimoController ..> EmprestimoModel
-
-LivroDAO --o LivroController
-LivroController ..> LivroModel
-LivroController o-- CalcularMultaContext
+    Livro "1" -- "1" Estoque : possui
+    Livro "1" --o "N" Emprestimo : emprestado
+    MultaAluno ..|> MultaStrategy
+    MultaProfessor ..|> MultaStrategy
+    LivroDAO ..|> Livro
+    Livro --o BibliotecaFacade
+    BibliotecaFacade --* HomeController
+    EmprestimoDAO ..> Emprestimo
+    Emprestimo --o BibliotecaFacade
+    HomeController --> HomeViewFXML
 
 ```

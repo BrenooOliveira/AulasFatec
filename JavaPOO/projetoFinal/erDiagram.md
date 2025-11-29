@@ -1,5 +1,4 @@
 # Diagrama Entidade - Relacionamento
-- Demonstra, de forma simples, como as entidades necessárias para uma POC se comportam
 
 ```mermaid
 erDiagram
