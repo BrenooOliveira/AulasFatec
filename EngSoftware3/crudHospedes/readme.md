@@ -1,5 +1,5 @@
 # Documento de REQUISITOS — Sistema de Reserva de Hotel
-Deverá ser implementada uma aplicação web, considerando os requisitos de CRUD de hóspedes definidos nas tarefas anteriores. Essa aplicação deve implementar todos os padrões aprendidos em aula. Deveremos ter um diagrama de classes de domínio e de implementação, além de um diagrama de sequência para o cenário de inclusão.
+    Essa aplicação deve implementar todos os padrões aprendidos em aula. Deveremos ter um diagrama de classes de domínio e de implementação, além de um diagrama de sequência para o cenário de inclusão.
 
 ## Requisitos Funcionais
 
