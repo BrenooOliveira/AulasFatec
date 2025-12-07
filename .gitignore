@@ -11,3 +11,5 @@
 !*.sql
 !*.sqlnb
 !*.yml
+!*.svg
+!*.drawio
