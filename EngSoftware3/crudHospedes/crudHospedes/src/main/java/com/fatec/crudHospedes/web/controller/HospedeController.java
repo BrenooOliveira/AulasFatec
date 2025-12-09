@@ -1,12 +1,8 @@
 package com.fatec.crudHospedes.web.controller;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.fatec.crudHospedes.domain.model.HospedeModel;
 import com.fatec.crudHospedes.domain.service.HospedeService;
 
