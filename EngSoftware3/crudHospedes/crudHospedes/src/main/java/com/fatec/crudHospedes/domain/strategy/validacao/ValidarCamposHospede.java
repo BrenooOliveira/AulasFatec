@@ -1,5 +1,6 @@
 package com.fatec.crudHospedes.domain.strategy.validacao;
 
+import com.fatec.crudHospedes.domain.exception.BusinessException;
 import com.fatec.crudHospedes.domain.model.HospedeModel;
 
 import org.springframework.stereotype.Component;
@@ -11,18 +12,18 @@ public class ValidarCamposHospede implements IValidacaoStrategy<HospedeModel>{
     public void validar(HospedeModel h) {
 
         if (!StringUtils.hasText(h.getNome()))
-            throw new RuntimeException("Nome é obrigatório.");
+            throw new BusinessException("Nome é obrigatório.");
 
         if (!StringUtils.hasText(h.getCpf()))
-            throw new RuntimeException("CPF é obrigatório.");
+            throw new BusinessException("CPF é obrigatório.");
 
         if (!StringUtils.hasText(h.getEmail()))
-            throw new RuntimeException("E-mail é obrigatório.");
+            throw new BusinessException("E-mail é obrigatório.");
 
         if (!StringUtils.hasText(h.getTelefone()))
-            throw new RuntimeException("Telefone é obrigatório.");
+            throw new BusinessException("Telefone é obrigatório.");
 
         if (h.getDtNascimento() == null)
-            throw new RuntimeException("Data de nascimento é obrigatória.");
+            throw new BusinessException("Data de nascimento é obrigatória.");
     }
 }

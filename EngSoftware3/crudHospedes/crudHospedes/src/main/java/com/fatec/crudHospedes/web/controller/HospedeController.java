@@ -3,6 +3,8 @@ package com.fatec.crudHospedes.web.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.fatec.crudHospedes.domain.exception.BusinessException;
 import com.fatec.crudHospedes.domain.model.HospedeModel;
 import com.fatec.crudHospedes.domain.service.HospedeService;
 
@@ -33,9 +35,16 @@ public class HospedeController {
     }
 
     @PostMapping
-    public String cadastrar(HospedeModel hospede){
-        service.cadastrar(hospede);
-        return "redirect:/hospedes";
+    public String cadastrar(HospedeModel hospede, Model model) {
+        try {
+            service.cadastrar(hospede);
+            return "redirect:/hospedes";
+
+        } catch (BusinessException e) {
+            model.addAttribute("erro", e.getMessage());
+            model.addAttribute("hospede", hospede);
+            return "hospedes/form";
+        }
     }
 
     @GetMapping("/{id}/editar")
@@ -45,11 +54,18 @@ public class HospedeController {
     }
 
     @PostMapping("/{id}")
-    public String alterar(@PathVariable Long id, HospedeModel hospede){
-        service.alterar(id, hospede);
-        return "redirect:/hospedes";
+    public String alterar(@PathVariable Long id, HospedeModel hospede, Model model) {
+        try {
+            service.alterar(id, hospede);
+            return "redirect:/hospedes";
 
+        } catch (BusinessException e) {
+            model.addAttribute("erro", e.getMessage());
+            model.addAttribute("hospede", hospede);
+            return "hospedes/form";
+        }
     }
+
 
     @GetMapping("/{id}/inativar")
     public String inativar(@PathVariable Long id){
