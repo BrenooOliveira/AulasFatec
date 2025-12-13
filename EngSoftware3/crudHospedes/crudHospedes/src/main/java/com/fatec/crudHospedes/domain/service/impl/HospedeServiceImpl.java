@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.fatec.crudHospedes.domain.exception.BusinessException;
 import com.fatec.crudHospedes.domain.model.HospedeModel;
 import com.fatec.crudHospedes.domain.repository.HospedeRepository;
 import com.fatec.crudHospedes.domain.service.HospedeService;
@@ -31,7 +32,7 @@ public class HospedeServiceImpl implements HospedeService {
     @Override
     public HospedeModel alterar(Long id, HospedeModel hospede){
         HospedeModel existente = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Hospede não encontrado."));
+                .orElseThrow(() -> new BusinessException("Hospede não encontrado."));
 
         // Evita conflito ao alterar CPF
         if (!existente.getCpf().equals(hospede.getCpf())) {
