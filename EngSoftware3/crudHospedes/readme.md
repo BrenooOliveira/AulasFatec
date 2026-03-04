@@ -152,7 +152,7 @@
 
 | ID     | Nome                            | Descrição                                                            |
 | ------ | ------------------------------- | -------------------------------------------------------------------- |
-| RN0201 | Dados obrigatórios do hóspede   | Nome, CPF, data de nascimento, telefone, e-mail e endereço completo. |
+| RN0201 | Dados obrigatórios do hóspede   | Nome, CPF, data de nascimento, telefone, e-mail e endereço composto por: Logradouro, Número, CEP, Bairro, Complemento, Cidade e Estado|
 | RN0202 | Unicidade de CPF                | O CPF deve ser único.                                                |
 | RN0203 | Dados obrigatórios do quarto    | Número, tipo, capacidade e preço-base.                               |
 | RN0204 | Dados obrigatórios da reserva   | Hóspede, quarto, datas, quantidades, status e valor total.           |
