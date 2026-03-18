@@ -13,3 +13,5 @@
 !*.yml
 !*.svg
 !*.drawio
+!*.ipynb
+!*.py
