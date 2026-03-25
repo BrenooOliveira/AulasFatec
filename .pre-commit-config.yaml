@@ -11,6 +11,8 @@ repos:
         args: ['--maxkb=2000']  # Sets limit to 2 MB
       - id: pretty-format-json # Formata JSON
         args: ["--autofix"]
+        exclude: \.ipynb$
+
 
 
   - repo: local
