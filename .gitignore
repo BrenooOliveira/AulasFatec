@@ -8,6 +8,7 @@
 !*.md
 !*.yaml
 .venv/
+venv/
 !*.sql
 !*.sqlnb
 !*.yml
