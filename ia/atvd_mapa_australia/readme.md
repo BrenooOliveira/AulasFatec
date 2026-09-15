@@ -1,0 +1,1 @@
+Adapte o algoritmo em IIA007_2sem2026_coloring.ipynb (arquivo anexo), para resolução do problema inicial de coloração de mapas apresentado nos slides 5, 6, 7 e 8 (mapa da Austrália) do arquivo "Aula 08 - Satisfação de Restrições - CSP-  IIA007 (2sem2026).pdf" disponibilizado no Teams da disciplina.
