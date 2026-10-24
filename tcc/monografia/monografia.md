@@ -13,7 +13,7 @@ O componente central desse paradigma é a busca vetorial por similaridade semân
 
 Apesar da proliferação dessas ferramentas, persiste uma lacuna relevante: existe alta produção prática sobre bancos vetoriais, porém pouca comparação formal e sistemática entre eles no contexto de pipelines RAG. As avaliações disponíveis tendem a ser fragmentadas, produzidas por fornecedores com potencial viés, ou realizadas em escalas e condições que inviabilizam a generalização. Esse cenário impõe um desafio concreto a engenheiros e equipes que precisam tomar decisões arquiteturais fundamentadas ao construir sistemas de IA baseados em recuperação semântica.
 
-Nesse contexto, o presente trabalho propõe uma comparação sistemática e reprodutível entre três soluções de recuperação vetorial de código aberto, avaliadas como o componente de busca de pipelines RAG padronizados. A questão norteadora que orienta a investigação pode ser enunciada da seguinte forma: dado que o desempenho de uma solução RAG depende da qualidade da recuperação vetorial, qual solução apresenta o melhor equilíbrio entre desempenho, escalabilidade e preservação da vizinhança vetorial de referência em diferentes volumes de dados?
+Nesse contexto, o presente trabalho propõe uma comparação sistemática e reprodutível entre três soluções de recuperação vetorial de código aberto, avaliadas como o componente de busca de pipelines RAG padronizados. A questão norteadora que orienta a investigação pode ser enunciada da seguinte forma: dado que o desempenho de uma solução RAG depende da qualidade da recuperação vetorial, qual solução apresenta o melhor equilíbrio entre desempenho, escalabilidade e taxa de acerto relativa à referência vetorial em diferentes volumes de dados?
 
 ---
 
@@ -35,7 +35,7 @@ Apesar da relevância dessa escolha arquitetural, constata-se uma lacuna signifi
 
 Esse cenário impõe um desafio concreto a engenheiros, arquitetos de software e equipes de ciência de dados que precisam selecionar a solução de armazenamento vetorial mais adequada para suas aplicações. A ausência de evidência experimental comparativa os obriga a basear suas decisões em documentação de fornecedores, benchmarks isolados ou recomendações da comunidade técnica, fontes com validade externa limitada e frequentemente associadas a contextos experimentais não generalizáveis. A escolha inadequada do banco de vetores pode implicar degradação de desempenho em produção, aumento de custos de infraestrutura, limitações de escalabilidade e, fundamentalmente, redução da qualidade das recuperações semânticas e das respostas geradas pelo sistema de inteligência artificial.
 
-**Contribuição específica deste trabalho:** o presente estudo diferencia-se dos trabalhos existentes por oferecer uma comparação sistemática, metodologicamente controlada e reprodutível entre três soluções de recuperação vetorial de código aberto (FAISS, Milvus e Chroma), utilizadas como componente de busca de pipelines RAG padronizados. Enquanto benchmarks de fornecedores tendem ao viés favorável, e o ANN-Benchmarks não considera o custo de ingestão e persistência dessas soluções, este trabalho avalia métricas operacionais (latência, throughput e consumo de recursos) e a preservação da vizinhança vetorial de referência por meio da taxa de acerto no top-k, em múltiplos cenários de escala (10k, 100k e 500k vetores), com intervalo de confiança de 95% e testes de significância. O código-fonte, os dados e os resultados são disponibilizados publicamente, permitindo replicação e extensão por pesquisadores e profissionais.
+**Contribuição específica deste trabalho:** o presente estudo diferencia-se dos trabalhos existentes por oferecer uma comparação sistemática, metodologicamente controlada e reprodutível entre três soluções de recuperação vetorial de código aberto (FAISS, Milvus e Chroma), utilizadas como componente de busca de pipelines RAG padronizados. Enquanto benchmarks de fornecedores tendem ao viés favorável, e o ANN-Benchmarks não considera o custo de ingestão e persistência dessas soluções, este trabalho avalia métricas operacionais (latência, throughput e consumo de recursos) e a taxa de acerto relativa ao ground truth no top-k, em múltiplos cenários de escala (10k, 100k e 500k vetores), com intervalo de confiança de 95% e testes de significância. O código-fonte, os dados e os resultados são disponibilizados publicamente, permitindo replicação e extensão por pesquisadores e profissionais.
 
 ---
 
@@ -51,7 +51,7 @@ Realizar uma comparação sistemática e reprodutível entre os bancos de vetore
 - **b)** Implementar um pipeline padronizado de recuperação vetorial, análogo à etapa de busca de uma aplicação RAG, utilizando Python e as bibliotecas nativas de cada solução, de modo a manter constantes as condições de comparação dentro de cada cenário experimental.
 - **c)** Construir três cenários experimentais com volumes de dados distintos, aproximadamente 10 mil, 100 mil e 500 mil vetores, de forma a observar como o comportamento de cada banco de vetores se modifica em função do crescimento do conjunto de dados indexado.
 - **d)** Mensurar, para cada solução e em cada cenário de volume, métricas operacionais e de recuperação, incluindo latência de busca, throughput de consultas, tempo de indexação e ingestão, consumo de memória RAM, tamanho em disco e taxa de acerto no top-k, permitindo uma análise multidimensional do desempenho.
-- **e)** Avaliar a recuperação vetorial de cada solução por meio da taxa de acerto no top-k, operacionalizada nos arquivos como Recall@k (k=1, 5, 10), verificando em que medida os resultados preservam a vizinhança obtida pela busca exata conforme o volume de dados cresce.
+- **e)** Avaliar a recuperação vetorial de cada solução por meio da taxa de acerto no top-k, operacionalizada nos arquivos como Recall@k (k=1, 5, 10), verificando em que medida os resultados apresentam interseção com a referência obtida pela busca exata conforme o volume de dados cresce.
 - **f)** Identificar, com base nos resultados experimentais obtidos, em quais condições de volume e requisito operacional cada banco de vetores apresenta vantagem relativa, de modo a subsidiar recomendações práticas para engenheiros e arquitetos de software que precisam selecionar a solução mais adequada ao seu contexto de aplicação.
 - **g)** Disponibilizar publicamente o código-fonte dos experimentos, os conjuntos de dados utilizados e os scripts de avaliação, garantindo que os resultados sejam reprodutíveis por pesquisadores e profissionais interessados em replicar ou estender a comparação realizada.
 ---
@@ -136,7 +136,7 @@ Os algoritmos de indexação para busca em vetores podem ser categorizados em tr
 Entre as principais implementações de busca vetorial e RAG destacam-se algumas ferramentas de código aberto e bibliotecas de alto desempenho:
 
 - **FAISS (Meta AI, 2021):** biblioteca de busca por similaridade desenvolvida pelo Facebook AI Research. Suporta diversos índices (IVF, PQ, HNSW etc.) e é otimizada para GPU. Permite buscar k-NN ou realizar busca vetorial em lote eficientemente. Por exemplo, sua implementação do índice invertido (IVF) segue a abordagem clássica de Sivic & Zisserman (2003) para buscas não-exaustivas. Faiss também inclui técnicas avançadas como quantização (PQ, OPQ) e o índice HNSW de Malkov et al. (2016). Essas otimizações permitem a Faiss “acalhar” o tempo de consulta contra a precisão, além de suportar métricas alternativas (produto interno, L1) e buscas em vetores binários.
-- **Milvus (Zilliz/LF AI, 2021):** banco de dados vetoriais de alto desempenho e nuvem nativo. Milvus separa a camada de serviço dos motores de busca de vetores, suportando múltiplos tipos de índices conforme o caso de uso. Por exemplo, para um campo FLOAT_VECTOR, Milvus oferece índices FLAT (exata), IVF_FLAT, IVF_PQ, HNSW, DISKANN, SCANN, e até versões GPU (p.e. GPU_IVF_PQ). A documentação do Milvus enfatiza que o índice acelera a busca ao custo de memória e custo de pré-processamento. Seu índice HNSW (descrição no item anterior) permite busca rápida com alta acurácia. No geral, Milvus é projetado para casos de uso industriais que exigem escalabilidade, consistência ACID e vetorização em larga escala.
+- **Milvus (Zilliz/LF AI, 2021):** banco de dados vetoriais de alto desempenho e nuvem nativo. Milvus separa a camada de serviço dos motores de busca de vetores, suportando múltiplos tipos de índices conforme o caso de uso. Por exemplo, para um campo FLOAT_VECTOR, Milvus oferece índices FLAT, IVF_FLAT, IVF_PQ, HNSW, DISKANN, SCANN, e até versões GPU (p.e. GPU_IVF_PQ). A documentação do Milvus caracteriza o FLAT como busca sem aproximação; contudo, neste trabalho o resultado do Milvus Lite é sempre confrontado empiricamente com o ground truth produzido pelo FAISS, pois a execução observada não reproduziu integralmente esse ground truth em todas as consultas. Seu índice HNSW (descrição no item anterior) permite busca rápida com alta acurácia. No geral, Milvus é projetado para casos de uso industriais que exigem escalabilidade, consistência ACID e vetorização em larga escala.
 - **Chroma (Cognition, 2023):** banco de dados de vetores de fonte aberta otimizado para armazenamento em object storage. De acordo com a documentação, “os índices do Chroma são construídos e otimizados para object storage, oferecendo custo e desempenho incomparáveis”. Ele suporta não apenas busca vetorial (semântica) mas também busca textual tradicional (BM25) e indexação esparsa (SPLADE), permitindo consultas híbridas. Em cenários de RAG, Chroma destaca-se por escalabilidade serverless e por incorporar mecanismos de cache em memória e disco para acelerar consultas semânticas.
 Essas ferramentas refletem diferentes estratégias de implementação, mas todas têm em comum o uso de índices vetoriais eficientes e compatibilidade com integração a modelos de embeddings e LLMs.
 
@@ -272,7 +272,7 @@ Cada banco de vetores foi configurado com múltiplas estratégias de indexação
 
 | Índice | Parâmetro | S1 | S2 | S3 | Justificativa |
 |--------|-----------|-----|-----|-----|--------------|
-| **Flat** (`FLAT`) | — | ✅ | ✅ | ✅ | Equivalente FAISS Flat; busca exata via produto interno |
+| **Flat** (`FLAT`) | — | ✅ | ✅ | ✅ | Busca linear do Milvus Lite; resultado comparado ao ground truth FAISS |
 | **HNSW** (`HNSW`) | M=16, efConstruction=200, ef=64 | ✅ | ✅ | ✅ | M=16 (menor que FAISS) equilibra memória e conectividade; efConstruction=200 garante grafo denso na indexação; ef=64 na busca controla o escopo de exploração |
 
 **Justificativa de diferenças vs. FAISS:** Milvus expõe `efConstruction` e `ef` (busca) explicitamente via API, permitindo controle fino; M=16 em vez de 32 compensa o overhead de serialização da camada de persistência.
@@ -291,7 +291,7 @@ A avaliação de qualidade semântica repousa em um **oráculo de busca exata**,
 
 ### 3.5.1 Definição
 
-O **ground truth** para cada query é construído executando busca **sem aproximações** sobre o corpus completo utilizando **FAISS IndexFlatIP** (Inner Product sobre vetores L2-normalizados), que garante recuperação matematicamente ótima dos k vizinhos mais próximos.
+O **ground truth** para cada query é construído executando busca **sem aproximações** sobre o corpus completo utilizando **FAISS IndexFlatIP** (Inner Product sobre vetores L2-normalizados), que constitui a referência operacional desta pesquisa para os k vizinhos mais próximos. Embora a configuração `FLAT` do Milvus Lite seja uma busca linear, seus resultados observados não reproduziram integralmente o ground truth FAISS em todas as consultas: o Recall@1 registrado foi 0,970 em S1 e 0,880 em S3. Como a causa dessa divergência não foi isolada nos artefatos disponíveis, o Milvus Flat não é tratado como oráculo nem como referência exata validada.
 
 Operacionalmente, em cada cenário o oráculo é executado uma única vez sobre as 200 consultas e retorna, para cada uma, os 10 vizinhos exatos (o maior k avaliado). Para um dado k ∈ {1, 5, 10}, o ground truth da consulta corresponde aos k primeiros desses 10 resultados:
 
@@ -299,7 +299,7 @@ Operacionalmente, em cada cenário o oráculo é executado uma única vez sobre 
 ground_truth[q_i, :k] = k primeiros vizinhos exatos da consulta q_i (IndexFlatIP)
 ```
 
-Esse conjunto permite verificar em que medida cada índice aproximado preserva a vizinhança exata das consultas. Como o oráculo não utiliza aproximações, seu próprio Recall@k vale 1,0 por definição, o que o torna a referência superior de comparação para as demais configurações.
+Esse conjunto permite verificar a taxa de acerto de cada configuração em relação à referência FAISS. Como o oráculo não utiliza aproximações, seu próprio Recall@k vale 1,0 por definição, o que o torna a referência operacional de comparação para as demais configurações.
 
 ![Processo de construção do oráculo de busca exata: o FAISS IndexFlatIP processa o corpus completo e as queries offline gerando o ground truth; os índices aproximados têm seus resultados comparados ao oráculo para cálculo do Recall@k. Elaborado pelo autor, 2026.](fig_3_3_ground_truth.mermaid)
 
@@ -348,7 +348,7 @@ Quatro das cinco consultas apresentam interseção não vazia, logo Recall@5 = (
 
 **Valores avaliados e interpretação.** Avaliam-se k = 1, 5 e 10. Para k = 1, o acerto exige que o vizinho mais próximo retornado seja exatamente o vizinho mais próximo verdadeiro, e as duas variantes coincidem; é, portanto, o valor mais restritivo. Para k = 5 e k = 10, basta que um dos vizinhos exatos esteja entre os k retornados, o que torna a métrica progressivamente mais permissiva: valores próximos de 1,0 em k = 10 indicam que o índice raramente perde toda a vizinhança de uma consulta, mas não que todos os vizinhos exatos foram recuperados. Por essa razão, os resultados do Capítulo 4 devem ser lidos de forma conjunta nos três valores de k, e esta característica é retomada como limitação na discussão sobre validade de construto.
 
-**Papel como métrica substituta (*proxy*).** Em uma aplicação RAG, o modelo de linguagem não pode produzir respostas melhores do que o contexto que recebe. O Recall@k mede em que proporção o banco de vetores aproximado preserva a vizinhança que uma busca exata teria encontrado, funcionando como indicador da qualidade de recuperação sem a introdução de um modelo de linguagem como segunda variável.
+**Papel como métrica substituta (*proxy*).** Em uma aplicação RAG, o modelo de linguagem não pode produzir respostas melhores do que o contexto que recebe. O Recall@k implementado mede a proporção de consultas com ao menos uma interseção entre os resultados avaliados e a referência FAISS, funcionando como indicador permissivo da qualidade de recuperação sem a introdução de um modelo de linguagem como segunda variável.
 
 ### 3.6.2 Tempo de Indexação
 
@@ -508,7 +508,7 @@ O experimento foi executado em três cenários, com 200 consultas por cenário e
 | S2 | 100.000 | Sintéticos normalizados | HNSW-32 | HNSW-16 | HNSW automático |
 | S3 | 500.000 | Sintéticos normalizados | HNSW-32 e IVF707 | HNSW-16 | HNSW automático |
 
-As configurações HNSW e IVF são aproximadas. FAISS Flat é o oráculo de busca exata utilizado para construir o *ground truth*, enquanto Milvus Flat é uma referência exata adicional dentro do Milvus Lite. O Chroma concluiu a inserção em S1 e S2, mas atingiu `timeout_insercao` em S3; por isso, não há latência, QPS ou Recall@k válidos para esse caso.
+As configurações HNSW e IVF são aproximadas. FAISS Flat é o oráculo de busca exata utilizado para construir o *ground truth*, enquanto Milvus Flat é uma configuração de busca linear do Milvus Lite, avaliada contra esse oráculo. O Chroma concluiu a inserção em S1 e S2, mas atingiu `timeout_insercao` em S3; por isso, não há latência, QPS ou Recall@k válidos para esse caso.
 
 ## 4.2 Resultados do cenário S1 — 10 mil vetores
 
@@ -520,7 +520,7 @@ No cenário S1, todos os bancos concluíram a indexação e a busca. O FAISS HNS
 | Milvus HNSW-16 | 7,94 | 222,6 | 15,4 | 6,2066 | 11,3456 | 156,4 | 0,970 / 1,000 / 1,000 |
 | Chroma HNSW automático | 39,50 | 44,4 | 27,6 | 7,8377 | 15,7446 | 105,8 | 1,000 / 1,000 / 1,000 |
 
-Os três resultados apresentam Recall@10 igual a 1,000 segundo a métrica implementada. Entretanto, esse valor indica apenas que cada consulta preservou pelo menos um dos dez vizinhos exatos no conjunto retornado, e não que todos os dez vizinhos foram recuperados. A diferença entre as soluções aparece principalmente na latência, no throughput e no custo de indexação. O FAISS HNSW-32 foi aproximadamente duas ordens de grandeza mais rápido que as alternativas avaliadas, mas essa vantagem deve ser interpretada juntamente com a diferença de abstração: FAISS é uma biblioteca de busca, enquanto Milvus Lite e Chroma incluem camadas de armazenamento e gerenciamento.
+Os três resultados apresentam Recall@10 igual a 1,000 segundo a métrica implementada. Entretanto, esse valor indica apenas que cada consulta teve ao menos um dos dez vizinhos exatos entre os resultados retornados, e não que todos os dez vizinhos foram recuperados. A diferença entre as soluções aparece principalmente na latência, no throughput e no custo de indexação. O FAISS HNSW-32 foi aproximadamente duas ordens de grandeza mais rápido que as alternativas avaliadas, mas essa vantagem deve ser interpretada juntamente com a diferença de abstração: FAISS é uma biblioteca de busca, enquanto Milvus Lite e Chroma incluem camadas de armazenamento e gerenciamento.
 
 O resultado do S1 caracteriza o comportamento com embeddings textuais reais em um volume pequeno. Ele não deve ser usado, isoladamente, para inferir o comportamento nos cenários sintéticos de maior escala.
 
@@ -528,7 +528,7 @@ O resultado do S1 caracteriza o comportamento com embeddings textuais reais em u
 
 ## 4.3 Resultados do cenário S2 — 100 mil vetores
 
-Com 100.000 vetores sintéticos normalizados, a diferença entre velocidade e preservação da vizinhança tornou-se mais evidente. O FAISS HNSW-32 manteve a menor latência, com p50 de 0,4799 ms e 2.139,2 QPS, mas obteve Recall@10 de apenas 0,395. O Chroma apresentou p50 de 11,7991 ms e Recall@10 de 0,685. O Milvus HNSW-16 alcançou Recall@10 igual a 1,000, porém com p50 de 31,7936 ms e 28,1 QPS.
+Com 100.000 vetores sintéticos normalizados, a diferença entre velocidade e taxa de acerto tornou-se mais evidente. O FAISS HNSW-32 manteve a menor latência, com p50 de 0,4799 ms e 2.139,2 QPS, mas obteve Recall@10 de apenas 0,395. O Chroma apresentou p50 de 11,7991 ms e Recall@10 de 0,685. O Milvus HNSW-16 alcançou Recall@10 igual a 1,000, porém com p50 de 31,7936 ms e 28,1 QPS.
 
 | Banco e índice | Indexação (s) | RAM (MB) | Disco (MB) | p50 (ms) | p99 (ms) | QPS | Recall@1/@5/@10 |
 |---|---:|---:|---:|---:|---:|---:|---|
@@ -536,7 +536,7 @@ Com 100.000 vetores sintéticos normalizados, a diferença entre velocidade e pr
 | Milvus HNSW-16 | 251,54 | 531,4 | 150,1 | 31,7936 | 58,2442 | 28,1 | 1,000 / 1,000 / 1,000 |
 | Chroma HNSW automático | 784,67 | 435,2 | 186,7 | 11,7991 | 19,3476 | 75,5 | 0,125 / 0,475 / 0,685 |
 
-Os resultados detalhados ajudam a separar o efeito da estrutura de índice do efeito da solução. O FAISS Flat exato apresentou p50 de 1,7335 ms e Recall@10 igual a 1,000, enquanto o HNSW-32 reduziu a latência, mas perdeu parte da vizinhança de referência. No Milvus, o índice Flat exato apresentou p50 de 17,3536 ms, inferior ao HNSW-16 nesse cenário, com Recall@10 igual a 1,000. Assim, a configuração aproximada não foi automaticamente superior em todos os critérios: o HNSW preservou a qualidade, mas apresentou maior latência que o Flat nas condições medidas.
+Os resultados detalhados ajudam a separar o efeito da estrutura de índice do efeito da solução. O FAISS Flat exato apresentou p50 de 1,7335 ms e taxa de acerto `Recall@10` igual a 1,000, enquanto o HNSW-32 reduziu a latência, mas obteve menor taxa de acerto. No Milvus, a configuração Flat apresentou p50 de 17,3536 ms, inferior ao HNSW-16 nesse cenário, com `Recall@10` igual a 1,000. Esse valor não demonstra recuperação integral dos dez vizinhos, pois a métrica conta a consulta como acerto quando existe ao menos uma interseção. Assim, a configuração aproximada não foi automaticamente superior em todos os critérios: o HNSW apresentou maior taxa de acerto segundo a métrica implementada, mas também maior latência que o Flat nas condições medidas.
 
 ![Figura 4.2 — Recall@1, Recall@5 e Recall@10 dos bancos nos cenários avaliados. Fonte: Elaborado pelo autor, 2026.](../results/fig2_recall_k.png)
 
@@ -550,9 +550,9 @@ O cenário S3 evidencia o compromisso entre latência, qualidade de recuperaçã
 | FAISS IVF707 | 32,958 | 701,5 | 737,3 | 0,1815 | 0,2043 | 5.467,24 | 0,005 / 0,065 / 0,100 |
 | Milvus HNSW-16 | 1.475,66 | 2.335,6 | 866,0 | 86,7920 | 92,5054 | 11,6 | 0,915 / 1,000 / 1,000 |
 | FAISS Flat exato | 1,622 | 732,4 | 732,4 | 8,9815 | 18,6660 | 95,75 | 1,000 / 1,000 / 1,000 |
-| Milvus Flat exato | 1.157,628 | 1.434,5 | 898,0 | 57,0858 | 65,6730 | 18,09 | 0,880 / 1,000 / 1,000 |
+| Milvus Flat (FLAT) | 1.157,628 | 1.434,5 | 898,0 | 57,0858 | 65,6730 | 18,09 | 0,880 / 1,000 / 1,000 |
 
-No FAISS, a redução de latência do IVF707 em relação ao Flat exato e ao HNSW-32 ocorreu acompanhada de Recall@10 inferior. Esse resultado é compatível com o uso de uma busca mais restrita no índice aproximado, mas não permite concluir que o IVF seja universalmente superior ou inferior: seus parâmetros devem ser ajustados conforme o requisito de qualidade. No Milvus, o HNSW apresentou maior latência que o Flat, embora ambos tenham preservado integralmente o top-10 segundo a métrica adotada.
+No FAISS, a redução de latência do IVF707 em relação ao Flat exato e ao HNSW-32 ocorreu acompanhada de menor taxa de acerto `Recall@10`. Esse resultado é compatível com o uso de uma busca mais restrita no índice aproximado, mas não permite concluir que o IVF seja universalmente superior ou inferior: seus parâmetros devem ser ajustados conforme o requisito de qualidade. No Milvus, o HNSW apresentou maior latência que o Flat, embora ambos tenham obtido `Recall@10` igual a 1,000. Esse resultado significa que todas as consultas tiveram ao menos uma interseção no top-10 avaliado; não significa que os dez vizinhos do ground truth foram recuperados integralmente.
 
 O Chroma não concluiu a inserção dos 500.000 vetores dentro do limite operacional definido. O registro apresenta 1.810,98 s de indexação acumulada, 892,9 MB de RAM e 435,3 MB em disco até o timeout, mas esses valores não representam uma execução concluída e não devem ser comparados com uma busca válida. A ausência de p50, p99, QPS e Recall@k é, portanto, parte do resultado experimental: nas condições avaliadas, não foi possível completar o ciclo de ingestão e consulta.
 
@@ -572,7 +572,7 @@ O teste de Wilcoxon pareado indicou diferenças estatisticamente significativas 
 
 Os resultados mostram que não existe uma solução dominante em todos os critérios. O FAISS ofereceu as menores latências e os maiores throughputs entre as configurações HNSW comparadas, especialmente nos cenários S1 e S2. Em contrapartida, o Recall@10 do FAISS HNSW caiu para 0,395 em S2 e 0,135 em S3. O IVF707 foi ainda mais rápido em S3, mas apresentou Recall@10 de 0,100. Esses resultados caracterizam uma escolha adequada quando a prioridade é velocidade e quando a perda de vizinhança é aceitável ou pode ser compensada pelo ajuste de parâmetros.
 
-O Milvus HNSW-16 preservou a vizinhança de referência nos cenários S2 e S3 segundo a taxa de acerto implementada, mas apresentou maior latência e maior consumo de RAM, particularmente em S3, com 2.335,6 MB. Essa combinação pode ser relevante quando a qualidade de recuperação é prioritária e há recursos computacionais disponíveis. A conclusão, entretanto, é restrita ao Milvus Lite local e aos parâmetros testados.
+O Milvus HNSW-16 obteve a maior taxa de acerto segundo a métrica implementada nos cenários S2 e S3, mas apresentou maior latência e maior consumo de RAM, particularmente em S3, com 2.335,6 MB. Essa combinação pode ser relevante quando essa medida de recuperação é prioritária e há recursos computacionais disponíveis. A conclusão, entretanto, é restrita ao Milvus Lite local e aos parâmetros testados.
 
 O Chroma apresentou indexação mais lenta que FAISS e Milvus nos cenários concluídos, mas teve latência inferior à do Milvus em S2 e superior à do FAISS. Seu Recall@10 foi 0,685 em S2, intermediário entre FAISS HNSW e Milvus HNSW. Em S3, o timeout de inserção revela uma limitação operacional observada no ambiente, sem permitir atribuir ao Chroma uma latência de consulta ou um Recall ausente.
 
@@ -582,7 +582,7 @@ O gráfico radar resume as métricas normalizadas apenas para S1 e S2. Ele é ú
 
 ## 4.7 Síntese dos resultados e limites de interpretação
 
-Em resposta parcial à questão norteadora, o FAISS apresentou a melhor eficiência de busca nas condições avaliadas, enquanto o Milvus HNSW apresentou maior preservação da vizinhança nos cenários sintéticos de maior escala. O Chroma ocupou uma posição intermediária nos cenários concluídos, mas não completou a ingestão em S3. Portanto, a seleção depende da prioridade entre latência, qualidade de recuperação, consumo de recursos e capacidade de concluir a ingestão.
+Em resposta parcial à questão norteadora, o FAISS apresentou a melhor eficiência de busca nas condições avaliadas, enquanto o Milvus HNSW apresentou a maior taxa de acerto segundo a métrica implementada nos cenários sintéticos de maior escala. O Chroma ocupou uma posição intermediária nos cenários concluídos, mas não completou a ingestão em S3. Portanto, a seleção depende da prioridade entre latência, taxa de acerto, consumo de recursos e capacidade de concluir a ingestão.
 
 Essa síntese não constitui uma avaliação completa de uma aplicação RAG. O experimento não inclui LLM, geração de respostas, avaliação factual, busca híbrida ou reranking. Além disso, S2 e S3 avaliam comportamento geométrico sobre vetores sintéticos, não qualidade semântica sobre um corpus textual real. As medições foram realizadas em CPU, sobre lotes de consultas, com memória RSS observada por `psutil`, e o Milvus foi executado em modo Lite local. As conclusões não devem ser generalizadas automaticamente para GPUs, outros modelos de embedding, corpora em português, consultas concorrentes ou clusters distribuídos.
 
