@@ -494,6 +494,98 @@ $$H_1: \text{mediana}_{\text{FAISS}} \neq \text{mediana}_{\text{Milvus}}$$
 - **Reprodutibilidade:** instruções dual (Colab + local)
 ---
 
+# 4 DESENVOLVIMENTO E RESULTADOS
+
+## 4.1 Protocolo de apresentação dos resultados
+
+Este capítulo apresenta e discute os resultados do benchmark descrito no Capítulo 3. A fonte numérica principal é o arquivo `resultados_completos.csv`, que reúne uma configuração de busca aproximada por banco e cenário. Os arquivos detalhados são utilizados para preservar a comparação com as buscas exatas (`Flat_exato`) e com a configuração adicional `IVF707` do FAISS no cenário S3. Essa distinção é necessária porque o fator experimental não é apenas a marca do banco, mas a combinação entre solução, índice e parâmetros.
+
+O experimento foi executado em três cenários, com 200 consultas por cenário e dez repetições de busca após uma execução de aquecimento descartada. O cenário S1 utiliza 10.000 embeddings reais derivados do corpus AG News; os cenários S2 e S3 utilizam, respectivamente, 100.000 e 500.000 vetores sintéticos normalizados. As latências são apresentadas em milissegundos por consulta, embora tenham sido medidas sobre lotes de 200 consultas. Portanto, elas não representam necessariamente a latência de uma consulta isolada em produção.
+
+| Cenário | Vetores | Dados | FAISS | Milvus Lite | Chroma |
+|---|---:|---|---|---|---|
+| S1 | 10.000 | AG News e embeddings reais | HNSW-32 | HNSW-16 | HNSW automático |
+| S2 | 100.000 | Sintéticos normalizados | HNSW-32 | HNSW-16 | HNSW automático |
+| S3 | 500.000 | Sintéticos normalizados | HNSW-32 e IVF707 | HNSW-16 | HNSW automático |
+
+As configurações HNSW e IVF são aproximadas. FAISS Flat é o oráculo de busca exata utilizado para construir o *ground truth*, enquanto Milvus Flat é uma referência exata adicional dentro do Milvus Lite. O Chroma concluiu a inserção em S1 e S2, mas atingiu `timeout_insercao` em S3; por isso, não há latência, QPS ou Recall@k válidos para esse caso.
+
+## 4.2 Resultados do cenário S1 — 10 mil vetores
+
+No cenário S1, todos os bancos concluíram a indexação e a busca. O FAISS HNSW-32 apresentou a menor latência mediana, de 0,0581 ms por consulta, e o maior throughput, de 17.486,4 consultas por segundo. O Milvus HNSW-16 apresentou p50 de 6,2066 ms e 156,4 QPS, enquanto o Chroma HNSW automático apresentou p50 de 7,8377 ms e 105,8 QPS.
+
+| Banco e índice | Indexação (s) | RAM (MB) | Disco (MB) | p50 (ms) | p99 (ms) | QPS | Recall@1/@5/@10 |
+|---|---:|---:|---:|---:|---:|---:|---|
+| FAISS HNSW-32 | 1,41 | 0,3 | 17,2 | 0,0581 | 0,0600 | 17.486,4 | 0,980 / 0,995 / 1,000 |
+| Milvus HNSW-16 | 7,94 | 222,6 | 15,4 | 6,2066 | 11,3456 | 156,4 | 0,970 / 1,000 / 1,000 |
+| Chroma HNSW automático | 39,50 | 44,4 | 27,6 | 7,8377 | 15,7446 | 105,8 | 1,000 / 1,000 / 1,000 |
+
+Os três resultados apresentam Recall@10 igual a 1,000 segundo a métrica implementada. Entretanto, esse valor indica apenas que cada consulta preservou pelo menos um dos dez vizinhos exatos no conjunto retornado, e não que todos os dez vizinhos foram recuperados. A diferença entre as soluções aparece principalmente na latência, no throughput e no custo de indexação. O FAISS HNSW-32 foi aproximadamente duas ordens de grandeza mais rápido que as alternativas avaliadas, mas essa vantagem deve ser interpretada juntamente com a diferença de abstração: FAISS é uma biblioteca de busca, enquanto Milvus Lite e Chroma incluem camadas de armazenamento e gerenciamento.
+
+O resultado do S1 caracteriza o comportamento com embeddings textuais reais em um volume pequeno. Ele não deve ser usado, isoladamente, para inferir o comportamento nos cenários sintéticos de maior escala.
+
+![Figura 4.1 — Desempenho de indexação, latência p50 e throughput dos bancos nos três cenários. Fonte: Elaborado pelo autor, 2026.](../results/fig1_desempenho.png)
+
+## 4.3 Resultados do cenário S2 — 100 mil vetores
+
+Com 100.000 vetores sintéticos normalizados, a diferença entre velocidade e preservação da vizinhança tornou-se mais evidente. O FAISS HNSW-32 manteve a menor latência, com p50 de 0,4799 ms e 2.139,2 QPS, mas obteve Recall@10 de apenas 0,395. O Chroma apresentou p50 de 11,7991 ms e Recall@10 de 0,685. O Milvus HNSW-16 alcançou Recall@10 igual a 1,000, porém com p50 de 31,7936 ms e 28,1 QPS.
+
+| Banco e índice | Indexação (s) | RAM (MB) | Disco (MB) | p50 (ms) | p99 (ms) | QPS | Recall@1/@5/@10 |
+|---|---:|---:|---:|---:|---:|---:|---|
+| FAISS HNSW-32 | 179,92 | 146,6 | 172,4 | 0,4799 | 0,4995 | 2.139,2 | 0,045 / 0,215 / 0,395 |
+| Milvus HNSW-16 | 251,54 | 531,4 | 150,1 | 31,7936 | 58,2442 | 28,1 | 1,000 / 1,000 / 1,000 |
+| Chroma HNSW automático | 784,67 | 435,2 | 186,7 | 11,7991 | 19,3476 | 75,5 | 0,125 / 0,475 / 0,685 |
+
+Os resultados detalhados ajudam a separar o efeito da estrutura de índice do efeito da solução. O FAISS Flat exato apresentou p50 de 1,7335 ms e Recall@10 igual a 1,000, enquanto o HNSW-32 reduziu a latência, mas perdeu parte da vizinhança de referência. No Milvus, o índice Flat exato apresentou p50 de 17,3536 ms, inferior ao HNSW-16 nesse cenário, com Recall@10 igual a 1,000. Assim, a configuração aproximada não foi automaticamente superior em todos os critérios: o HNSW preservou a qualidade, mas apresentou maior latência que o Flat nas condições medidas.
+
+![Figura 4.2 — Recall@1, Recall@5 e Recall@10 dos bancos nos cenários avaliados. Fonte: Elaborado pelo autor, 2026.](../results/fig2_recall_k.png)
+
+## 4.4 Resultados do cenário S3 — 500 mil vetores
+
+O cenário S3 evidencia o compromisso entre latência, qualidade de recuperação e custo de operação. O FAISS HNSW-32 apresentou p50 de 0,8006 ms e 913,2 QPS, mas Recall@10 de 0,135. A configuração FAISS IVF707 foi ainda mais rápida, com p50 de 0,1815 ms e 5.467,24 QPS, porém seu Recall@10 foi 0,100. O Milvus HNSW-16 alcançou Recall@10 igual a 1,000, com p50 de 86,7920 ms e 11,6 QPS.
+
+| Banco e índice | Indexação (s) | RAM (MB) | Disco (MB) | p50 (ms) | p99 (ms) | QPS | Recall@1/@5/@10 |
+|---|---:|---:|---:|---:|---:|---:|---|
+| FAISS HNSW-32 | 1.208,16 | 857,0 | 862,2 | 0,8006 | 2,1629 | 913,2 | 0,020 / 0,080 / 0,135 |
+| FAISS IVF707 | 32,958 | 701,5 | 737,3 | 0,1815 | 0,2043 | 5.467,24 | 0,005 / 0,065 / 0,100 |
+| Milvus HNSW-16 | 1.475,66 | 2.335,6 | 866,0 | 86,7920 | 92,5054 | 11,6 | 0,915 / 1,000 / 1,000 |
+| FAISS Flat exato | 1,622 | 732,4 | 732,4 | 8,9815 | 18,6660 | 95,75 | 1,000 / 1,000 / 1,000 |
+| Milvus Flat exato | 1.157,628 | 1.434,5 | 898,0 | 57,0858 | 65,6730 | 18,09 | 0,880 / 1,000 / 1,000 |
+
+No FAISS, a redução de latência do IVF707 em relação ao Flat exato e ao HNSW-32 ocorreu acompanhada de Recall@10 inferior. Esse resultado é compatível com o uso de uma busca mais restrita no índice aproximado, mas não permite concluir que o IVF seja universalmente superior ou inferior: seus parâmetros devem ser ajustados conforme o requisito de qualidade. No Milvus, o HNSW apresentou maior latência que o Flat, embora ambos tenham preservado integralmente o top-10 segundo a métrica adotada.
+
+O Chroma não concluiu a inserção dos 500.000 vetores dentro do limite operacional definido. O registro apresenta 1.810,98 s de indexação acumulada, 892,9 MB de RAM e 435,3 MB em disco até o timeout, mas esses valores não representam uma execução concluída e não devem ser comparados com uma busca válida. A ausência de p50, p99, QPS e Recall@k é, portanto, parte do resultado experimental: nas condições avaliadas, não foi possível completar o ciclo de ingestão e consulta.
+
+![Figura 4.3 — Consumo de RAM e tamanho em disco durante a indexação. Fonte: Elaborado pelo autor, 2026.](../results/fig3_recursos.png)
+
+## 4.5 Incerteza e análise estatística
+
+Os intervalos de confiança foram calculados sobre as dez latências por configuração. No S1, o FAISS apresentou média de 0,0572 ms e IC95% entre 0,0555 e 0,0589 ms, enquanto o Milvus apresentou média de 6,3924 ms e IC95% entre 4,6149 e 8,1699 ms. No S2, os respectivos intervalos foram 0,4410–0,4939 ms para o FAISS, 28,4882–42,7243 ms para o Milvus e 10,9239–15,5793 ms para o Chroma.
+
+No S3, a média do FAISS HNSW-32 foi 1,0950 ms, com IC95% entre 0,5550 e 1,6350 ms e coeficiente de variação de 68,94%. O Milvus HNSW-16 apresentou média de 86,5592 ms, IC95% entre 83,8578 e 89,2607 ms e coeficiente de variação de 4,36%. A maior variabilidade relativa do FAISS nesse cenário recomenda cautela ao resumir seu desempenho apenas pela mediana.
+
+O teste de Wilcoxon pareado indicou diferenças estatisticamente significativas de latência entre os pares FAISS–Milvus, FAISS–Chroma e Milvus–Chroma em S1, com valores de p entre 0,002 e 0,0195. Em S2, os três pares também foram significativos, com p = 0,002. Em S3, a comparação FAISS–Milvus foi significativa, com p = 0,002; os pares envolvendo Chroma não puderam ser testados porque o Chroma não concluiu a inserção. Esses testes sustentam diferenças nas medições de latência, mas não demonstram superioridade em Recall@k, RAM, disco, tempo de indexação ou implantação distribuída.
+
+![Figura 4.4 — Latência p50 e p99 por banco e cenário. Fonte: Elaborado pelo autor, 2026.](../results/fig4_latencia.png)
+
+## 4.6 Discussão dos trade-offs
+
+Os resultados mostram que não existe uma solução dominante em todos os critérios. O FAISS ofereceu as menores latências e os maiores throughputs entre as configurações HNSW comparadas, especialmente nos cenários S1 e S2. Em contrapartida, o Recall@10 do FAISS HNSW caiu para 0,395 em S2 e 0,135 em S3. O IVF707 foi ainda mais rápido em S3, mas apresentou Recall@10 de 0,100. Esses resultados caracterizam uma escolha adequada quando a prioridade é velocidade e quando a perda de vizinhança é aceitável ou pode ser compensada pelo ajuste de parâmetros.
+
+O Milvus HNSW-16 preservou a vizinhança de referência nos cenários S2 e S3 segundo a taxa de acerto implementada, mas apresentou maior latência e maior consumo de RAM, particularmente em S3, com 2.335,6 MB. Essa combinação pode ser relevante quando a qualidade de recuperação é prioritária e há recursos computacionais disponíveis. A conclusão, entretanto, é restrita ao Milvus Lite local e aos parâmetros testados.
+
+O Chroma apresentou indexação mais lenta que FAISS e Milvus nos cenários concluídos, mas teve latência inferior à do Milvus em S2 e superior à do FAISS. Seu Recall@10 foi 0,685 em S2, intermediário entre FAISS HNSW e Milvus HNSW. Em S3, o timeout de inserção revela uma limitação operacional observada no ambiente, sem permitir atribuir ao Chroma uma latência de consulta ou um Recall ausente.
+
+O gráfico radar resume as métricas normalizadas apenas para S1 e S2. Ele é útil como visualização exploratória de perfis, mas não substitui a leitura das tabelas, não inclui o S3 e não estabelece uma função de utilidade única para decidir entre latência, qualidade, memória e armazenamento.
+
+![Figura 4.5 — Perfil multidimensional normalizado dos bancos nos cenários S1 e S2. Fonte: Elaborado pelo autor, 2026.](../results/fig5_radar.png)
+
+## 4.7 Síntese dos resultados e limites de interpretação
+
+Em resposta parcial à questão norteadora, o FAISS apresentou a melhor eficiência de busca nas condições avaliadas, enquanto o Milvus HNSW apresentou maior preservação da vizinhança nos cenários sintéticos de maior escala. O Chroma ocupou uma posição intermediária nos cenários concluídos, mas não completou a ingestão em S3. Portanto, a seleção depende da prioridade entre latência, qualidade de recuperação, consumo de recursos e capacidade de concluir a ingestão.
+
+Essa síntese não constitui uma avaliação completa de uma aplicação RAG. O experimento não inclui LLM, geração de respostas, avaliação factual, busca híbrida ou reranking. Além disso, S2 e S3 avaliam comportamento geométrico sobre vetores sintéticos, não qualidade semântica sobre um corpus textual real. As medições foram realizadas em CPU, sobre lotes de consultas, com memória RSS observada por `psutil`, e o Milvus foi executado em modo Lite local. As conclusões não devem ser generalizadas automaticamente para GPUs, outros modelos de embedding, corpora em português, consultas concorrentes ou clusters distribuídos.
+
 # 5 REFERÊNCIAS
 
 AUMULLER, Martin et al. ANN-Benchmarks: A benchmarking tool for approximate nearest neighbor algorithms. Information Systems, v. 87, p. 101374, 2020. DOI: 10.1016/j.is.2019.02.006. Disponível em: https://arxiv.org/abs/1807.05614. Acesso em: ago. 2026.
