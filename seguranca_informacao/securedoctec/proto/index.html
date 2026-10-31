@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SecureDocTec | Demonstração</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container">
+        <div class="brand">
+          <div class="brand-mark">
+            <img src="assets/logo_fatec_branco.svg" alt="Logo da FATEC" />
+          </div>
+        </div>
+        <nav class="nav" aria-label="Navegação principal">
+          <a class="active" href="index.html">Início</a>
+          <a href="emissao.html">Emissão</a>
+          <a href="validacao.html">Validação</a>
+          <a href="adulteracao.html">Adulteração</a>
+          <a href="resumo.html">Resumo</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-card">
+          <div class="hero-grid">
+            <div>
+              <span class="kicker">Prova de conceito</span>
+              <h1>Protegendo documentos acadêmicos com criptografia e assinatura digital.</h1>
+              <p class="lead">
+                Esta demonstração mostra como a Fatec pode validar a autenticidade, a integridade e a confidencialidade de documentos digitais como históricos escolares, declarações e atestados de matrícula, usando AES-256-GCM e assinatura digital com hash SHA-256.
+              </p>
+              <div class="hero-actions">
+                <a class="button button-primary" href="emissao.html">Ver fluxo de emissão</a>
+                <a class="button button-secondary" href="validacao.html">Testar validação</a>
+              </div>
+            </div>
+            <aside class="badge-panel hero-visual">
+              <img src="assets/aluns_with_computer.jpg" alt="Alunos com computadores na FATEC" />
+              <h3>Principais garantias</h3>
+              <div class="badge-grid">
+                <div class="badge">
+                  <strong>Confidencialidade</strong>
+                  Conteúdo cifrado
+                </div>
+                <div class="badge">
+                  <strong>Integridade</strong>
+                  Hash SHA-256
+                </div>
+                <div class="badge">
+                  <strong>Autenticidade</strong>
+                  Assinatura digital
+                </div>
+                <div class="badge">
+                  <strong>Validação</strong>
+                  Verificação externa
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Visão do problema</h2>
+          </div>
+          <div class="card-grid">
+            <article class="card">
+              <h3>Risco de fraude</h3>
+              <ul>
+                <li>Documentos acadêmicos podem ser editados.</li>
+                <li>Alterações na nota ou no nome comprometem a autenticidade.</li>
+                <li>O verificador precisa confirmar origem e integridade.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Desafio técnico</h3>
+              <ul>
+                <li>O documento deve ficar protegido sem impedir a validação.</li>
+                <li>O sistema precisa garantir que qualquer alteração seja detectada.</li>
+                <li>A chave de origem não deve ser facilmente exposta.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Proposta</h3>
+              <ul>
+                <li>Usar AES-256-GCM para cifragem.</li>
+                <li>Usar SHA-256 para gerar o resumo do conteúdo.</li>
+                <li>Assinar digitalmente o hash para validar origem.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        SecureDocTec — demonstração didática para apresentação acadêmica.
+      </div>
+    </footer>
+  </body>
+</html>

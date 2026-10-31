@@ -16,3 +16,9 @@ venv/
 !*.drawio
 !*.ipynb
 !*.py
+!*.html
+!*.css
+!*.js
+!*.jpg
+!*.jpeg
+!*.png

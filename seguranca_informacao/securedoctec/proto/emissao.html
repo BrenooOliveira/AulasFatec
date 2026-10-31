@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SecureDocTec | Emissão</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container">
+        <div class="brand">
+          <div class="brand-mark">SD</div>
+          <span>SecureDocTec</span>
+        </div>
+        <nav class="nav" aria-label="Navegação principal">
+          <a href="index.html">Início</a>
+          <a class="active" href="emissao.html">Emissão</a>
+          <a href="validacao.html">Validação</a>
+          <a href="adulteracao.html">Adulteração</a>
+          <a href="resumo.html">Resumo</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Fluxo de emissão do documento</h2>
+          <p>Este cenário simula a geração de um histórico acadêmico com proteção criptográfica e assinatura institucional.</p>
+        </div>
+
+        <div class="form-card">
+          <form id="document-form">
+            <div class="form-grid">
+              <div class="field">
+                <label for="studentName">Nome do aluno</label>
+                <input id="studentName" name="studentName" type="text" value="Ana Beatriz Souza" />
+              </div>
+              <div class="field">
+                <label for="course">Curso</label>
+                <input id="course" name="course" type="text" value="Análise e Desenvolvimento de Sistemas" />
+              </div>
+              <div class="field">
+                <label for="documentType">Tipo de documento</label>
+                <select id="documentType" name="documentType">
+                  <option value="Histórico Escolar">Histórico Escolar</option>
+                  <option value="Declaração de Matrícula">Declaração de Matrícula</option>
+                  <option value="Atestado de Conclusão">Atestado de Conclusão</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="issueDate">Data de emissão</label>
+                <input id="issueDate" name="issueDate" type="date" value="2026-10-31" />
+              </div>
+              <div class="field full">
+                <label for="issuer">Emissor</label>
+                <input id="issuer" name="issuer" type="text" value="FATEC Mogi das Cruzes - Secretaria Acadêmica" />
+              </div>
+              <div class="field full">
+                <label for="content">Conteúdo do documento</label>
+                <textarea id="content" name="content">Aluno: Ana Beatriz Souza
+Curso: Análise e Desenvolvimento de Sistemas
+Matrícula: 2026-1007
+Semestre: 5º
+Média final do curso: 9,4
+Status: Concluinte
+Data de emissão: 31/10/2026</textarea>
+              </div>
+            </div>
+            <div class="hero-actions">
+              <button class="button button-primary" type="submit">Emitir documento</button>
+              <a class="button button-secondary" href="validacao.html">Ir para validação</a>
+            </div>
+          </form>
+        </div>
+
+        <div id="emission-output" class="output-panel"></div>
+      </div>
+    </main>
+
+    <div id="toast" class="status-box" style="position: fixed; right: 20px; bottom: 20px; opacity: 0; transition: opacity 0.2s ease; z-index: 500; min-width: 260px; background: #fff; color: var(--fatec-gray); box-shadow: var(--shadow);"></div>
+
+    <footer class="footer">
+      <div class="container">Fluxo de emissão — SecureDocTec</div>
+    </footer>
+  </body>
+</html>

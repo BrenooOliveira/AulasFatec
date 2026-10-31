@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SecureDocTec | Adulteração</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container">
+        <div class="brand">
+          <div class="brand-mark">
+            <img src="assets/logo_fatec_branco.svg" alt="Logo da FATEC" />
+          </div>
+        </div>
+        <nav class="nav" aria-label="Navegação principal">
+          <a href="index.html">Início</a>
+          <a href="emissao.html">Emissão</a>
+          <a href="validacao.html">Validação</a>
+          <a class="active" href="adulteracao.html">Adulteração</a>
+          <a href="resumo.html">Resumo</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Cenário de adulteração</h2>
+          <p>Uma cópia do documento é modificada. O hash difere e a assinatura digital deixa de validar.</p>
+        </div>
+
+        <div class="form-card">
+          <form id="adulteration-form">
+            <div class="field full">
+              <label for="modifiedText">Cópia adulterada</label>
+              <textarea id="modifiedText" name="modifiedText"></textarea>
+            </div>
+            <div class="hero-actions">
+              <button class="button button-primary" type="submit">Simular adulteração</button>
+              <a class="button button-secondary" href="resumo.html">Ver resumo</a>
+            </div>
+          </form>
+        </div>
+
+        <div id="adulteration-output" class="output-panel"></div>
+      </div>
+    </main>
+
+    <div id="toast" class="status-box" style="position: fixed; right: 20px; bottom: 20px; opacity: 0; transition: opacity 0.2s ease; z-index: 500; min-width: 260px; background: #fff; color: var(--fatec-gray); box-shadow: var(--shadow);"></div>
+
+    <footer class="footer">
+      <div class="container">Adulteração — SecureDocTec</div>
+    </footer>
+  </body>
+</html>

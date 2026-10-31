@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SecureDocTec | Monólito</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --fatec-red: #C8102E;
+        --fatec-red-dark: #9d0b23;
+        --fatec-gray: #212121;
+        --fatec-gray-2: #757575;
+        --fatec-ice: #F5F5F7;
+        --fatec-blue: #0056B3;
+        --success: #1f8a4c;
+        --danger: #b42318;
+        --warning: #d97706;
+        --shadow: 0 16px 32px rgba(33, 33, 33, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+        background: var(--fatec-ice);
+        color: var(--fatec-gray);
+      }
+      img { max-width: 100%; display: block; }
+      a { color: var(--fatec-blue); text-decoration: none; }
+      button, input, textarea, select { font: inherit; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+      .topbar {
+        background: linear-gradient(135deg, var(--fatec-gray) 0%, #171717 100%);
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      }
+      .topbar .container {
+        display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 72px;
+      }
+      .brand { display: flex; align-items: center; }
+      .brand-mark {
+        width: 150px; display: flex; align-items: center; justify-content: center;
+      }
+      .brand-mark img { display: block; width: 100%; height: auto; max-height: 38px; object-fit: contain; }
+      .nav { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+      .nav a { color: rgba(255,255,255,0.82); font-size: 0.96rem; font-weight: 600; }
+      .nav a.active, .nav a:hover { color: #fff; }
+      .hero { padding: 56px 0 28px; background: linear-gradient(180deg, #fff 0%, var(--fatec-ice) 100%); }
+      .hero-card {
+        background: linear-gradient(135deg, rgba(200,16,46,0.06), rgba(0,86,179,0.08));
+        border: 1px solid rgba(33,33,33,0.06);
+        border-radius: 28px; padding: 36px; box-shadow: var(--shadow);
+      }
+      .hero-grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 28px; align-items: center; }
+      .kicker { display: inline-flex; align-items: center; background: rgba(200,16,46,0.1); color: var(--fatec-red); font-weight: 700; border-radius: 999px; padding: 8px 12px; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; }
+      h1, h2, h3 { margin: 0 0 16px; line-height: 1.1; }
+      h1 { font-size: clamp(2.2rem, 4vw, 4rem); }
+      h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); }
+      p { margin: 0 0 12px; line-height: 1.7; }
+      .lead { font-size: 1.08rem; max-width: 60ch; }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
+      .button, button {
+        border: none; border-radius: 12px; padding: 12px 18px; font-weight: 700; cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+      .button:hover, button:hover { transform: translateY(-1px); }
+      .button-primary { background: var(--fatec-red); color: white; box-shadow: 0 12px 24px rgba(200,16,46,0.25); }
+      .button-secondary { background: #fff; border: 1px solid rgba(33,33,33,0.12); color: var(--fatec-gray); }
+      .badge-panel {
+        background: white; border-radius: 24px; border: 1px solid rgba(33,33,33,0.07); padding: 24px; box-shadow: var(--shadow); min-width: 0; width: 440px; max-width: 100%;
+      }
+      .hero-visual { display: flex; flex-direction: column; gap: 16px; }
+      .hero-visual img { width: 100%; border-radius: 18px; box-shadow: var(--shadow); object-fit: cover; min-height: 220px; }
+      .badge-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+      .badge {
+        background: var(--fatec-ice); border: 1px solid rgba(33,33,33,0.06); border-radius: 16px; padding: 16px; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; min-height: 108px; color: var(--fatec-gray); line-height: 1.4; overflow-wrap: anywhere;
+      }
+      .badge strong { display: block; font-size: 1rem; line-height: 1.3; margin-bottom: 6px; overflow-wrap: anywhere; }
+      .page { display: none; }
+      .page.active { display: block; }
+      .section { padding: 32px 0; }
+      .section-header { margin-bottom: 22px; }
+      .card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+      .card { background: white; border-radius: 20px; padding: 24px; border: 1px solid rgba(33,33,33,0.06); box-shadow: var(--shadow); }
+      .card ul { padding-left: 20px; margin: 0; line-height: 1.9; }
+      .forms-wrap { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .form-card {
+        background: white; border-radius: 24px; padding: 28px; border: 1px solid rgba(33,33,33,0.06); box-shadow: var(--shadow);
+      }
+      .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+      .field { display: flex; flex-direction: column; gap: 8px; }
+      .field.full { grid-column: 1 / -1; }
+      label { font-size: 0.88rem; font-weight: 700; color: var(--fatec-gray); }
+      input, select, textarea {
+        width: 100%; border: 1px solid rgba(33,33,33,0.15); border-radius: 12px; background: #fff; color: var(--fatec-gray); padding: 12px 14px; resize: vertical; min-height: 46px;
+      }
+      textarea { min-height: 180px; font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+      .output-panel { margin-top: 22px; padding: 20px; border-radius: 18px; background: var(--fatec-ice); border: 1px solid rgba(33,33,33,0.07); }
+      .status-box {
+        padding: 16px 18px; border-radius: 14px; margin-top: 16px; font-weight: 700; border: 1px solid transparent;
+      }
+      .status-valid { background: rgba(31,138,76,0.1); color: var(--success); border-color: rgba(31,138,76,0.2); }
+      .status-invalid { background: rgba(180,35,24,0.08); color: var(--danger); border-color: rgba(180,35,24,0.2); }
+      .toast {
+        border-radius: 12px; font-weight: 700; padding: 12px 16px; position: fixed; right: 20px; bottom: 20px; opacity: 0; transition: opacity 0.2s ease; z-index: 500; min-width: 260px; background: #fff; color: var(--fatec-gray); box-shadow: var(--shadow);
+      }
+      .toast.success { background: rgba(31,138,76,0.1); color: var(--success); border: 1px solid rgba(31,138,76,0.2); }
+      .toast.danger { background: rgba(180,35,24,0.08); color: var(--danger); border: 1px solid rgba(180,35,24,0.2); }
+      .toast.warning { background: rgba(217,119,6,0.08); color: var(--warning); border: 1px solid rgba(217,119,6,0.2); }
+      .code-block {
+        background: #111827; color: #e5e7eb; border-radius: 14px; padding: 16px; margin-top: 14px; overflow: auto; font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.85rem; line-height: 1.6; white-space: pre-wrap;
+      }
+      .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 22px; }
+      .metric { background: white; border: 1px solid rgba(33,33,33,0.07); border-radius: 18px; padding: 18px; }
+      .metric strong { display: block; font-size: 1.5rem; margin-bottom: 10px; }
+      .metric span { color: var(--fatec-gray-2); }
+      .footer { padding: 26px 0 46px; color: var(--fatec-gray-2); }
+      @media (max-width: 900px) {
+        .hero-grid, .card-grid, .metrics, .forms-wrap, .form-grid { grid-template-columns: 1fr; }
+        .topbar .container { flex-direction: column; justify-content: center; padding-top: 12px; padding-bottom: 12px; }
+        .nav { justify-content: center; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container">
+        <div class="brand">
+          <div class="brand-mark">
+            <img src="assets/logo_fatec_branco.svg" alt="Logo da FATEC" />
+          </div>
+        </div>
+        <nav class="nav" aria-label="Navegação principal">
+          <a class="active" href="#" data-page="home">Início</a>
+          <a href="#" data-page="emissao">Emissão</a>
+          <a href="#" data-page="validacao">Validação</a>
+          <a href="#" data-page="adulteracao">Adulteração</a>
+          <a href="#" data-page="resumo">Resumo</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="topo">
+      <div id="home" class="page active">
+        <section class="hero">
+          <div class="container hero-card">
+            <div class="hero-grid">
+              <div>
+                <span class="kicker">Prova de conceito</span>
+                <h1>Protegendo documentos acadêmicos com criptografia e assinatura digital.</h1>
+                <p class="lead">
+                  Esta demonstração mostra como a Fatec pode validar a autenticidade, a integridade e a confidencialidade de documentos digitais como históricos escolares, declarações e atestados de matrícula, usando AES-256-GCM e assinatura digital com hash SHA-256.
+                </p>
+                <div class="hero-actions">
+                  <a class="button button-primary" href="#" data-page="emissao">Ver fluxo de emissão</a>
+                  <a class="button button-secondary" href="#" data-page="validacao">Testar validação</a>
+                </div>
+              </div>
+              <aside class="badge-panel hero-visual">
+                <img src="assets/aluns_with_computer.jpg" alt="Alunos com computadores na FATEC" />
+                <h3>Principais garantias</h3>
+                <div class="badge-grid">
+                  <div class="badge"><strong>Confidencialidade</strong> Conteúdo cifrado</div>
+                  <div class="badge"><strong>Integridade</strong> Hash SHA-256</div>
+                  <div class="badge"><strong>Autenticidade</strong> Assinatura digital</div>
+                  <div class="badge"><strong>Validação</strong> Verificação externa</div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="container">
+            <div class="section-header">
+              <h2>Visão do problema</h2>
+            </div>
+            <div class="card-grid">
+              <article class="card">
+                <h3>Risco de fraude</h3>
+                <ul>
+                  <li>Documentos acadêmicos podem ser editados.</li>
+                  <li>Alterações na nota ou no nome comprometem a autenticidade.</li>
+                  <li>O verificador precisa confirmar origem e integridade.</li>
+                </ul>
+              </article>
+              <article class="card">
+                <h3>Desafio técnico</h3>
+                <ul>
+                  <li>O documento deve ficar protegido sem impedir a validação.</li>
+                  <li>O sistema precisa garantir que qualquer alteração seja detectada.</li>
+                  <li>A chave de origem não deve ser facilmente exposta.</li>
+                </ul>
+              </article>
+              <article class="card">
+                <h3>Proposta</h3>
+                <ul>
+                  <li>Usar AES-256-GCM para cifragem.</li>
+                  <li>Usar SHA-256 para gerar o resumo do conteúdo.</li>
+                  <li>Assinar digitalmente o hash para validar origem.</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section id="emissao" class="page section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Fluxo de emissão</h2>
+            <p>Este cenário simula a geração de um histórico acadêmico com proteção criptográfica e assinatura institucional.</p>
+          </div>
+          <div class="form-card">
+            <form id="document-form">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="studentName">Nome do aluno</label>
+                  <input id="studentName" name="studentName" type="text" value="Ana Beatriz Souza" />
+                </div>
+                <div class="field">
+                  <label for="course">Curso</label>
+                  <input id="course" name="course" type="text" value="Análise e Desenvolvimento de Sistemas" />
+                </div>
+                <div class="field">
+                  <label for="documentType">Tipo de documento</label>
+                  <select id="documentType" name="documentType">
+                    <option value="Histórico Escolar">Histórico Escolar</option>
+                    <option value="Declaração de Matrícula">Declaração de Matrícula</option>
+                    <option value="Atestado de Conclusão">Atestado de Conclusão</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="issueDate">Data de emissão</label>
+                  <input id="issueDate" name="issueDate" type="date" value="2026-10-31" />
+                </div>
+                <div class="field full">
+                  <label for="issuer">Emissor</label>
+                  <input id="issuer" name="issuer" type="text" value="FATEC Mogi das Cruzes - Secretaria Acadêmica" />
+                </div>
+                <div class="field full">
+                  <label for="content">Conteúdo do documento</label>
+                  <textarea id="content" name="content">Aluno: Ana Beatriz Souza
+Curso: Análise e Desenvolvimento de Sistemas
+Matrícula: 2026-1007
+Semestre: 5º
+Média final do curso: 9,4
+Status: Concluinte
+Data de emissão: 31/10/2026</textarea>
+                </div>
+              </div>
+              <div class="hero-actions">
+                <button class="button button-primary" type="submit">Emitir documento</button>
+                <a class="button button-secondary" href="#" data-page="validacao">Ir para validação</a>
+              </div>
+            </form>
+          </div>
+          <div id="emission-output" class="output-panel"></div>
+        </div>
+      </section>
+
+      <section id="validacao" class="page section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Validação de documento</h2>
+            <p>O verificador apresenta o documento e o sistema calcula o hash para confirmar se a assinatura digital da instituição é válida.</p>
+          </div>
+          <div class="form-card">
+            <form id="validation-form">
+              <div class="field full">
+                <label for="presentedText">Documento apresentado</label>
+                <textarea id="presentedText" name="presentedText"></textarea>
+              </div>
+              <div class="hero-actions">
+                <button class="button button-primary" type="submit">Validar documento</button>
+                <a class="button button-secondary" href="#" data-page="adulteracao">Ver cenário adulterado</a>
+              </div>
+            </form>
+          </div>
+          <div id="validation-output" class="output-panel"></div>
+        </div>
+      </section>
+
+      <section id="adulteracao" class="page section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Cenário de adulteração</h2>
+            <p>Uma cópia do documento é modificada. O hash difere e a assinatura digital deixa de validar.</p>
+          </div>
+          <div class="form-card">
+            <form id="adulteration-form">
+              <div class="field full">
+                <label for="modifiedText">Cópia adulterada</label>
+                <textarea id="modifiedText" name="modifiedText"></textarea>
+              </div>
+              <div class="hero-actions">
+                <button class="button button-primary" type="submit">Simular adulteração</button>
+                <a class="button button-secondary" href="#" data-page="resumo">Ver resumo</a>
+              </div>
+            </form>
+          </div>
+          <div id="adulteration-output" class="output-panel"></div>
+        </div>
+      </section>
+
+      <section id="resumo" class="page section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Resumo da proposta</h2>
+          </div>
+          <div class="metrics">
+            <div class="metric"><strong>Confidencialidade</strong><span>AES-256-GCM protege o conteúdo do documento.</span></div>
+            <div class="metric"><strong>Integridade</strong><span>SHA-256 identifica qualquer alteração no conteúdo.</span></div>
+            <div class="metric"><strong>Autenticidade</strong><span>A assinatura digital comprova a origem institucional.</span></div>
+            <div class="metric"><strong>Validação</strong><span>Qualquer alteração rompe a cadeia de autenticação.</span></div>
+          </div>
+          <div class="card-grid" style="margin-top: 22px;">
+            <article class="card">
+              <h3>Benefícios</h3>
+              <ul>
+                <li>Reduz risco de fraude acadêmica.</li>
+                <li>Permite verificação em canais externos.</li>
+                <li>Protege os dados pessoais dos estudantes.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Limitações</h3>
+              <ul>
+                <li>É uma POC educacional, não um sistema operacional completo.</li>
+                <li>Requer gestão real de chaves em ambiente seguro.</li>
+                <li>Precisa de políticas e auditoria para uso real.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Conclusão</h3>
+              <ul>
+                <li>O modelo combina criptografia e validação direta.</li>
+                <li>É adequado para demonstrar o problema e a solução.</li>
+                <li>Fica como base para evolução acadêmica e profissional.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <footer class="footer">
+      <div class="container">SecureDocTec — demonstração didática para apresentação acadêmica.</div>
+    </footer>
+
+    <script>
+      const STORAGE_KEY = 'secure-doctec-document';
+
+      function toBase64(buffer) {
+        const bytes = new Uint8Array(buffer);
+        let binary = '';
+        bytes.forEach((byte) => binary += String.fromCharCode(byte));
+        return btoa(binary);
+      }
+
+      function fromBase64(base64) {
+        const binary = atob(base64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+        return bytes;
+      }
+
+      function hexFromBytes(bytes) {
+        return Array.from(new Uint8Array(bytes)).map((b) => b.toString(16).padStart(2, '0')).join('');
+      }
+
+      async function sha256Hex(input) {
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input));
+        return hexFromBytes(digest);
+      }
+
+      async function generateEcdsaKeys() {
+        return crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify']);
+      }
+
+      async function signHash(hashHex, privateKey) {
+        const signature = await crypto.subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, privateKey, new TextEncoder().encode(hashHex));
+        return toBase64(signature);
+      }
+
+      async function verifySignature(hashHex, signatureBase64, publicKey) {
+        return crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, publicKey, fromBase64(signatureBase64), new TextEncoder().encode(hashHex));
+      }
+
+      async function encryptDocument(content) {
+        const iv = crypto.getRandomValues(new Uint8Array(12));
+        const key = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']);
+        const encrypted = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, new TextEncoder().encode(content));
+        const rawKey = await crypto.subtle.exportKey('raw', key);
+        return { iv: toBase64(iv), encrypted: toBase64(encrypted), key: toBase64(rawKey) };
+      }
+
+      function getStoredDocument() {
+        const value = localStorage.getItem(STORAGE_KEY);
+        return value ? JSON.parse(value) : null;
+      }
+
+      function saveDocument(record) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(record));
+      }
+
+      function showMessage(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        if (!toast) return;
+        toast.textContent = message;
+        toast.className = `toast ${type}`;
+        toast.style.opacity = '1';
+        clearTimeout(showMessage.timeoutId);
+        showMessage.timeoutId = setTimeout(() => { toast.style.opacity = '0'; }, 3500);
+      }
+
+      async function emitDocument(event) {
+        event.preventDefault();
+        const form = event.target;
+        const payload = {
+          studentName: form.studentName.value.trim(),
+          course: form.course.value.trim(),
+          documentType: form.documentType.value,
+          issueDate: form.issueDate.value,
+          issuer: form.issuer.value.trim(),
+          content: form.content.value.trim()
+        };
+
+        if (!payload.studentName || !payload.course || !payload.content) {
+          showMessage('É necessário preencher o aluno, o curso e o conteúdo do documento.', 'warning');
+          return;
+        }
+
+        const hash = await sha256Hex(payload.content);
+        const keyPair = await generateEcdsaKeys();
+        const publicKey = await crypto.subtle.exportKey('spki', keyPair.publicKey);
+        const signature = await signHash(hash, keyPair.privateKey);
+        const encryption = await encryptDocument(payload.content);
+
+        const record = {
+          id: `DOC-${Date.now()}`,
+          studentName: payload.studentName,
+          course: payload.course,
+          documentType: payload.documentType,
+          issueDate: payload.issueDate,
+          issuer: payload.issuer,
+          content: payload.content,
+          hash,
+          signature,
+          publicKey: toBase64(publicKey),
+          encryption
+        };
+
+        saveDocument(record);
+
+        const output = document.getElementById('emission-output');
+        if (output) {
+          output.innerHTML = `
+            <h3>Documento emitido com sucesso</h3>
+            <p><strong>ID:</strong> ${record.id}</p>
+            <p><strong>Aluno:</strong> ${record.studentName}</p>
+            <p><strong>Curso:</strong> ${record.course}</p>
+            <div class="code-block">Hash SHA-256: ${record.hash}
+
+Assinatura digital: ${record.signature}
+
+Chave pública institucional: ${record.publicKey.slice(0, 90)}...
+
+Envelope cifrado (AES-256-GCM): ${record.encryption.encrypted.slice(0, 120)}...</div>
+          `;
+        }
+
+        showMessage('Documento gerado com sucesso. O fluxo de validação pode ser testado agora.', 'success');
+      }
+
+      async function validateDocument(event) {
+        event.preventDefault();
+        const form = event.target;
+        const presentedText = form.presentedText.value.trim();
+        const record = getStoredDocument();
+
+        if (!record) {
+          showMessage('Primeiro gere um documento na página de emissão.', 'warning');
+          return;
+        }
+
+        const hash = await sha256Hex(presentedText);
+        const publicKey = await crypto.subtle.importKey('spki', fromBase64(record.publicKey), { name: 'ECDSA', namedCurve: 'P-256' }, false, ['verify']);
+        const verification = await verifySignature(hash, record.signature, publicKey);
+        const isValid = hash === record.hash && verification;
+
+        const container = document.getElementById('validation-output');
+        if (container) {
+          container.innerHTML = `
+            <h3>Resultado da validação</h3>
+            <div class="status-box ${isValid ? 'status-valid' : 'status-invalid'}">
+              ${isValid ? 'VÁLIDO — documento íntegro e autenticado.' : 'INVÁLIDO — documento adulterado ou assinatura inválida.'}
+            </div>
+            <div class="code-block">Hash calculado: ${hash}
+
+Hash original: ${record.hash}
+
+Assinatura válida: ${verification ? 'Sim' : 'Não'}</div>
+          `;
+        }
+
+        showMessage(isValid ? 'A validação confirmada indica integridade e autenticidade.' : 'A validação falhou. O conteúdo foi alterado ou a assinatura não corresponde.', isValid ? 'success' : 'danger');
+      }
+
+      async function simulateAdulteration(event) {
+        event.preventDefault();
+        const form = event.target;
+        const record = getStoredDocument();
+
+        if (!record) {
+          showMessage('Primeiro gere um documento na página de emissão.', 'warning');
+          return;
+        }
+
+        const modifiedText = form.modifiedText.value.trim();
+        const modifiedHash = await sha256Hex(modifiedText);
+        const publicKey = await crypto.subtle.importKey('spki', fromBase64(record.publicKey), { name: 'ECDSA', namedCurve: 'P-256' }, false, ['verify']);
+        const verification = await verifySignature(modifiedHash, record.signature, publicKey);
+        const isValid = modifiedHash === record.hash && verification;
+
+        const container = document.getElementById('adulteration-output');
+        if (container) {
+          container.innerHTML = `
+            <h3>Resultado do cenário adulterado</h3>
+            <div class="status-box ${isValid ? 'status-valid' : 'status-invalid'}">
+              ${isValid ? 'Documento ainda válido.' : 'Documento adulterado — a assinatura e o hash não conferem.'}
+            </div>
+            <div class="code-block">Conteúdo alterado:
+${modifiedText}
+
+Hash recalculado: ${modifiedHash}
+
+Hash oficial: ${record.hash}
+
+Autenticidade confirmada: ${verification ? 'Sim' : 'Não'}</div>
+          `;
+        }
+
+        showMessage(isValid ? 'Mesmo com a alteração, a assinatura continua válida.' : 'A alteração foi detectada e a validação foi rejeitada.', isValid ? 'success' : 'danger');
+      }
+
+      function initDefaultValues() {
+        const record = getStoredDocument();
+        const validationField = document.getElementById('presentedText');
+        const adulterationField = document.getElementById('modifiedText');
+
+        if (record && validationField) validationField.value = record.content;
+        if (record && adulterationField) adulterationField.value = `${record.content}\n\n[ALTERAÇÃO SIMULADA: a matrícula foi modificada e a nota foi aumentada.]`;
+      }
+
+      function initPageNavigation() {
+        const pages = Array.from(document.querySelectorAll('.page'));
+        const navItems = Array.from(document.querySelectorAll('[data-page]'));
+
+        function showPage(pageName) {
+          pages.forEach((page) => {
+            page.classList.toggle('active', page.id === pageName);
+          });
+
+          navItems.forEach((item) => {
+            const isActive = item.dataset.page === pageName;
+            item.classList.toggle('active', isActive);
+          });
+        }
+
+        navItems.forEach((item) => {
+          item.addEventListener('click', (event) => {
+            event.preventDefault();
+            const nextPage = item.dataset.page;
+            if (nextPage) showPage(nextPage);
+          });
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('document-form')?.addEventListener('submit', emitDocument);
+        document.getElementById('validation-form')?.addEventListener('submit', validateDocument);
+        document.getElementById('adulteration-form')?.addEventListener('submit', simulateAdulteration);
+        initPageNavigation();
+        initDefaultValues();
+      });
+    </script>
+  </body>
+</html>
