@@ -1,87 +1,127 @@
 # Relatório de Pendências — Monografia ABNT
 
-**Gerado em:** 2026-09-25 20:24:49
-**Fonte:** `monografia.md`
+**Gerado em:** 2026-10-28 21:42:06
+**Fonte:** `../monografia/monografia.md`
 **Saída:** `tcc_breno.docx`
-**Total de pendências:** 17
+**Total de pendências:** 28
 
 ---
 
-## HEADING COM PLACEHOLDER (1 ocorrência)
+## HEADING COM PLACEHOLDER (2 ocorrências)
 
 ### 1. Título de seção contém marcador de conteúdo pendente.
-- **Bloco #38**
+- **Bloco #39**
 - **Trecho:** `1.4 METODOLOGIA`
 
-## IMAGEM PENDENTE (1 ocorrência)
+### 2. Título de seção contém marcador de conteúdo pendente.
+- **Bloco #92**
+- **Trecho:** `3 METODOLOGIA`
 
-### 1. URL de imagem marcada como PENDENTE. Substituir pela URL real antes da entrega.
-- **Bloco #69**
-- **Trecho:** `![Figura 2 — Estrutura hierárquica do grafo HNSW: camadas superiores realizam navegação de longo alcance entre poucos nós; a camada base (layer 0) contém todos os vetores com conexões locais densas. Fonte: Adaptado de MALKOV, Yu. A.; YASHUNIN, D. A. Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World Graphs. IEEE Transactions on Pattern Analysis and Machine Intelligence, v. 42, n. 4, p. 824–836, 2020. DOI: 10.1109/tpami.2018.2889473.](PENDENTE: extrair Figura 1 do PDF em https://arxiv.org/pdf/1603.09320 e hospedar)`
-
-## IMAGEM URL EXTERNA (1 ocorrência)
-
-### 1. Imagem hospedada fora do GitHub do projeto. Recomendado hospedar em raw.githubusercontent.com para garantir disponibilidade.
-- **Bloco #62**
-- **Trecho:** `![Figura 1 — Arquitetura do pipeline RAG: fluxo de ingestão (offline) e fluxo de consulta (online). Fonte: Adaptado de WOLFF, Hayden. RAG 101: Demystifying Retrieval-Augmented Generation Pipelines. NVIDIA Developer Blog, dez. 2023. Disponível em: https://developer.nvidia.com/blog/rag-101-demystifying-retrieval-augmented-generation-pipelines/. Acesso em: ago. 2026.](https://developer-blogs.nvidia.com/wp-content/uploads/2023/12/rag-pipeline-inges)`
-
-## PLACEHOLDER NO TEXTO (14 ocorrências)
+## PLACEHOLDER NO TEXTO (26 ocorrências)
 
 ### 1. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
-- **Bloco #7**
-- **Trecho:** `Nesse contexto, o presente trabalho propõe uma comparação sistemática e reprodutível entre os principais bancos de vetor`
-
-### 2. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
-- **Bloco #11**
+- **Bloco #12**
 - **Trecho:** `Consequentemente, eventuais falhas no processo de recuperação propagam-se diretamente para a camada de geração, comprome`
 
-### 3. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
-- **Bloco #12**
+### 2. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #13**
 - **Trecho:** `O processo de busca vetorial em sistemas RAG opera sobre o princípio da similaridade semântica no espaço vetorial. Quand`
 
-### 4. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
-- **Bloco #16**
+### 3. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #17**
 - **Trecho:** `Apesar da relevância dessa escolha arquitetural, constata-se uma lacuna significativa na literatura técnica e acadêmica:`
 
-### 5. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
-- **Bloco #18**
+### 4. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #19**
 - **Trecho:** `**Contribuição específica deste trabalho:** o presente estudo diferencia-se dos trabalhos existentes por oferecer uma co`
 
-### 6. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
-- **Bloco #34**
+### 5. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #35**
 - **Trecho:** `Do ponto de vista científico, a literatura sobre Geração Aumentada de Recuperação tem avançado de forma expressiva nos a`
 
-### 7. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
-- **Bloco #35**
+### 6. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #36**
 - **Trecho:** `Do ponto de vista tecnológico, a escolha do banco de vetores é uma decisão arquitetural de impacto sistêmico em aplicaçõ`
 
-### 8. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
-- **Bloco #39**
+### 7. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #40**
 - **Trecho:** `A metodologia da pesquisa adota uma abordagem experimental de natureza quantitativa, estruturada em torno da construção `
 
-### 9. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
-- **Bloco #40**
-- **Trecho:** `O pipeline é implementado em Python, utilizando as bibliotecas nativas de cada banco de vetores, o modelo de embeddings `
+### 8. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #41**
+- **Trecho:** `O pipeline é implementado em Python, utilizando as bibliotecas nativas de cada solução, o modelo de embeddings sentence-`
 
-### 10. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
-- **Bloco #44**
+### 9. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #45**
 - **Trecho:** `O presente capítulo, **Capítulo 1 — Introdução**, contextualiza o cenário de rápida evolução dos Grandes Modelos de Ling`
 
-### 11. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
-- **Bloco #46**
-- **Trecho:** `O **Capítulo 3 — Avanço do Desenvolvimento do Projeto de Trabalho de Graduação** apresenta o desenvolvimento experimenta`
-
-### 12. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+### 10. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
 - **Bloco #47**
-- **Trecho:** `O **Capítulo 4 — Conclusão** retoma a questão norteadora da pesquisa e sumariza as principais evidências experimentais o`
+- **Trecho:** `O **Capítulo 3 — Metodologia** apresenta o desenho experimental desta pesquisa: o benchmark comparativo implementado em `
 
-### 13. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
-- **Bloco #71**
+### 11. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #72**
 - **Trecho:** `**Algoritmos de busca:** Dado o índice, a consulta a vetores envolve métricas de similaridade. Tipicamente, busca-se res`
 
-### 14. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
-- **Bloco #81**
+### 12. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #82**
 - **Trecho:** `O **FAISS** representa o polo de desempenho máximo e controle algorítmico: trata-se de uma biblioteca sem servidor, sem `
+
+### 13. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #96**
+- **Trecho:** `A natureza experimental da pesquisa decorre do fato de que a investigação manipula uma variável independente — o banco d`
+
+### 14. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #97**
+- **Trecho:** `**Justificativa metodológica:** A exclusão proposital de um modelo de linguagem (LLM) do experimento decorre de uma nece`
+
+### 15. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #109**
+- **Trecho:** `O **Inner Product** corresponde ao somatório do produto elemento a elemento de dois vetores. Quando os vetores são previ`
+
+### 16. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #138**
+- **Trecho:** `**Validade da aproximação:** embeddings textuais reais de modelos baseados em transformers tendem a se distribuir de for`
+
+### 17. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #145**
+- **Trecho:** `**⚠️ Nota metodológica:** os parâmetros `efSearch` (HNSW) e `nprobe` (IVF) não foram explicitamente definidos no noteboo`
+
+### 18. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #151**
+- **Trecho:** `| Índice | Parâmetro | S1 | S2 | S3 | Justificativa | |--------|-----------|-----|-----|-----|--------------| | **HNSW**`
+
+### 19. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #154**
+- **Trecho:** `A avaliação de qualidade semântica repousa em um **oráculo de busca exata**, metodologia padrão em sistemas de recuperaç`
+
+### 20. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #180**
+- **Trecho:** `**Valores avaliados e interpretação.** Avaliam-se k = 1, 5 e 10. Para k = 1, o acerto exige que o vizinho mais próximo r`
+
+### 21. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #259**
+- **Trecho:** `No cenário S1, todos os bancos concluíram a indexação e a busca. O FAISS HNSW-32 apresentou a menor latência mediana, de`
+
+### 22. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #261**
+- **Trecho:** `Os três resultados apresentam Recall@10 igual a 1,000 segundo a métrica implementada. Entretanto, esse valor indica apen`
+
+### 23. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #267**
+- **Trecho:** `Os resultados detalhados ajudam a separar o efeito da estrutura de índice do efeito da solução. O FAISS Flat exato apres`
+
+### 24. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #281**
+- **Trecho:** `Os resultados mostram que não existe uma solução dominante em todos os critérios. O FAISS ofereceu as menores latências `
+
+### 25. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #300**
+- **Trecho:** `É importante destacar que o objetivo **e** não corresponde ao recall clássico de recuperação de todos os itens relevante`
+
+### 26. Trecho com marcador de conteúdo pendente encontrado no corpo do texto.
+- **Bloco #319**
+- **Trecho:** `Cada configuração concluída foi medida em dez repetições, precedidas por uma execução de aquecimento descartada. Esse pr`
 
 ---
 *Relatório gerado automaticamente por monografia_converter.py*

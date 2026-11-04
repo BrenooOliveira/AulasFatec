@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cadastro de Hóspede</title>
+    <meta charset="UTF-8"/>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 450px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            font-size: 22px;
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            display: block;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #4b7bec;
+            outline: none;
+            box-shadow: 0 0 4px rgba(75, 123, 236, 0.4);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4b7bec;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #3867d6;
+        }
+
+        .back {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1 th:text="${hospede.id == null ? 'Cadastrar Hóspede' : 'Editar Hóspede'}"></h1>
+    <div th:if="${erro}"
+        style="background:#ffe6e6;
+                border:1px solid #ff4d4d;
+                padding:10px;
+                margin-bottom:20px;
+                border-radius:8px;
+                color:#cc0000;
+                font-weight:bold;">
+        <span th:text="${erro}"></span>
+    </div>
+
+
+    <form th:action="${hospede.id == null ? '/hospedes' : '/hospedes/' + hospede.id}" method="post">
+
+        <label>Nome</label>
+        <input type="text" name="nome" th:value="${hospede.nome}" required />
+
+        <label>CPF</label>
+        <input type="text" name="cpf" th:value="${hospede.cpf}" required />
+
+        <label>Data de Nascimento</label>
+        <input type="date" name="dtNascimento" th:value="${hospede.dtNascimento}" required />
+
+        <label>Telefone</label>
+        <input type="text" name="telefone" th:value="${hospede.telefone}" required />
+
+        <label>Email</label>
+        <input type="email" name="email" th:value="${hospede.email}" required />
+
+        <label>Logradouro</label>
+        <input type="text" name="logradouro" th:value="${hospede.logradouro}" required />
+
+        <button type="submit">Salvar</button>
+    </form>
+
+    <a class="back" href="/hospedes">Voltar</a>
+</div>
+
+</body>
+</html>

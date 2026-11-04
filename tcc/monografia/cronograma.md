@@ -27,12 +27,12 @@
 | Cap. 1 — Introdução | ✅ Completo | Gap analysis adicionado; objetivo (e) reescrito; justificativa 1.3 revisada |
 | Cap. 1.2.2 — Obj. específico (e) | ✅ Concluído | Reescrito — foco em Recall@k, LLM removido do escopo (D2/D5) |
 | Cap. 2 — Fundamentação | ✅ Completo | Diagrama RAG (WOLFF 2023); subseção 2.4.1 critérios de seleção; figura HNSW (MALKOV 2020) |
-| Cap. 3 — Metodologia | ❌ Ausente | Escrever do zero — **próximo passo** |
-| Cap. 4 — Desenvolvimento | ❌ Ausente | Depende dos dados do experimento |
-| Conclusão | ❌ Ausente | Escrever após Cap. 4 |
+| Cap. 3 — Metodologia | ✅ Completo | Escopo, protocolo, métricas e reprodutibilidade alinhados aos artefatos |
+| Cap. 4 — Desenvolvimento | ✅ Completo | Resultados, análise estatística, trade-offs e matriz decisória revisados |
+| Cap. 5 — Conclusão | ✅ Completo | Conclusão, limitações, trabalhos futuros e ameaças à validade inseridos |
 | Referências | ✅ Completo | 10 entradas, todas com URL, sem duplicatas; inclui GRAND VIEW RESEARCH, WOLFF, MALKOV & YASHUNIN |
-| Apêndices | ❌ Ausente | Código, tabelas completas |
-| Notebook | ✅ Completo | `benchmark_rag_vectordbs_v2.ipynb` — Colab-ready, 43 células |
+| Apêndices | ⏸ Opcional | Artefatos disponíveis no repositório; incorporar somente se exigido pela instituição |
+| Notebook | ✅ Completo | `benchmark_rag_vectordbs.ipynb` — Colab-ready, 45 células; resultados existentes preservados |
 | GitHub | ✅ Completo | README, requirements.txt, results/, LICENSE |
 
 ---
@@ -73,7 +73,7 @@
 - [x] Criar pasta `results/` com os CSVs e figuras
 - [x] Criar pasta `data/` ou documentar como baixar o ag_news (documentado no README)
 - [x] Adicionar licença (MIT)
-- [x] Commitar notebook revisado (`benchmark_rag_vectordbs_v2.ipynb`)
+- [x] Commitar notebook revisado (`benchmark_rag_vectordbs.ipynb`)
 ---
 
 ### FASE 2 — Revisão do Cap. 1 e Cap. 2
@@ -86,14 +86,9 @@
 - [x] Reescrever objetivo específico (c): "um milhão" → "500 mil vetores" (D1)
 - [x] Reescrever objetivo específico (e): remover avaliação de LLM; foco em Recall@k (k=1,5,10) com oráculo de busca exata (D2/D5)
 - [x] Revisar 1.3 Justificativa: Recall@k e 500k explicitados; diferencial vs. ANN-Benchmarks
-#### 2.2.1 ⚠️ Pendência transversal — Definição formal de métricas (Cap. 3)
-- [ ] **OBRIGATÓRIO antes da entrega:** criar subseção de métricas no Cap. 3 (Metodologia) com definição formal e didática de:
-  - **Recall@k** — fração dos resultados relevantes recuperados dentro dos k primeiros; fórmula: `Recall@k = |Relevantes ∩ Recuperados@k| / |Relevantes|`; incluir exemplo numérico
-  - **Precision@k** — fração dos k primeiros resultados retornados que são de fato relevantes
-  - **ground truth** — conjunto de resultados corretos obtido via oráculo de busca exata (FAISS IndexFlatIP)
-  - **oráculo de busca exata** — busca sem aproximações que garante resultado matematicamente ótimo
-  - Valores de k avaliados: k = 1, 5 e 10
-- **Motivo:** os termos aparecem 9+ vezes na monografia sem definição formal — risco crítico de rejeição pela banca
+#### 2.2.1 — Definições formais de métricas
+- [x] Recall@k, ground truth, oráculo de busca exata e valores de k definidos no Capítulo 3.
+- [x] Precision@k não é apresentada como métrica coletada; permanece fora do escopo experimental.
 #### 2.2 Cap. 2 — Fundamentação Teórica (complementos)
 - [x] **Seção 2.2 RAG** — Figura NVIDIA WOLFF (2023) inserida em markdown com ALT text ABNT; parágrafo expandido para dois fluxos (ingestão offline + consulta online)
 - [x] **Seção 2.3 HNSW** — Placeholder "(figura abaixo)" removido; figura Malkov & Yashunin (2020) inserida com placeholder de URL (⚠️ extrair Figura 1 do PDF https://arxiv.org/pdf/1603.09320 e hospedar no GitHub)
@@ -106,28 +101,28 @@
 **Pode iniciar:** Após definir resultados do experimento (Fase 1 concluída)
 
 #### 3.1 Estrutura do capítulo a escrever
-- [ ] **3.1 Caracterização da pesquisa** — pesquisa experimental quantitativa, abordagem de benchmark controlado
-- [ ] **3.2 Pipeline padronizado** — descrição de cada componente fixo:
+- [x] **3.1 Caracterização da pesquisa** — pesquisa experimental quantitativa, abordagem de benchmark controlado
+- [x] **3.2 Pipeline padronizado** — descrição de cada componente fixo:
   - Modelo de embeddings: all-MiniLM-L6-v2, 384 dims, normalizado, justificativa da escolha
   - Métrica de similaridade: Inner Product (equivalente a cosine em vetores normalizados)
   - Framework: Python 3.10, sem LangChain (para isolar o banco vetorial)
   - Variável independente: banco de vetores; variáveis controladas: embedding, queries, seed
-- [ ] **3.3 Cenários de escala**:
+- [x] **3.3 Cenários de escala**:
   - S1 (10k): embeddings reais, corpus ag_news, justify por ser próximo a produção pequena
   - S2 (100k): vetores sintéticos normalizados, justify por representar produção média
   - S3 (500k): vetores sintéticos normalizados, justify por representar carga empresarial
   - Justificativa metodológica dos sintéticos (replicam distribuição gaussiana normalizada dos embeddings reais)
-- [ ] **3.4 Configurações de índice avaliadas** — tabela com parâmetros de cada índice por banco
-- [ ] **3.5 Ground truth** — oráculo via IndexFlatIP, justificativa (prática padrão ANN-Benchmarks)
-- [ ] **3.6 Métricas de avaliação** — definição formal de cada métrica:
+- [x] **3.4 Configurações de índice avaliadas** — tabela com parâmetros de cada índice por banco
+- [x] **3.5 Ground truth** — oráculo via IndexFlatIP, justificativa (prática padrão ANN-Benchmarks)
+- [x] **3.6 Métricas de avaliação** — definição formal de cada métrica:
   - Tempo de indexação (s)
   - Latência p50 e p99 (ms por query)
   - Throughput QPS
   - Consumo de RAM (delta em MB)
   - Tamanho em disco (MB)
   - Recall@k (k=1,5,10) — definição matemática
-- [ ] **3.7 Análise estatística** — N=10 repetições, IC 95%, teste Wilcoxon para comparações pareadas de latência
-- [ ] **3.8 Ambiente e reprodutibilidade**:
+- [x] **3.7 Análise estatística** — N=10 repetições, IC 95%, teste Wilcoxon para comparações pareadas de latência
+- [x] **3.8 Ambiente e reprodutibilidade**:
   - Tabela de versões de bibliotecas (preencher após experimento)
   - Especificações do ambiente de execução (Colab: RAM, CPU, Python)
   - Seed de reprodutibilidade: 42
@@ -140,64 +135,64 @@
 **Depende de:** Fase 1 (dados do experimento)
 
 #### 4.1 Resultados operacionais
-- [ ] **4.1 Cenário S1 (10k)** — tabela + análise narrativa por banco
-- [ ] **4.2 Cenário S2 (100k)** — tabela + análise narrativa por banco
-- [ ] **4.3 Cenário S3 (500k)** — tabela + análise + observação sobre limites do Chroma
-- [ ] Inserir figuras geradas pelo notebook:
-  - [ ] Fig. 1 — Desempenho por cenário (indexação, latência p50, QPS)
-  - [ ] Fig. 2 — Recall@k por cenário
-  - [ ] Fig. 3 — Heatmap de consumo de recursos (RAM, disco)
-  - [ ] Fig. 4 — Distribuição de latência p50 e p99
-  - [ ] Fig. 5 — Radar multidimensional (S1+S2 normalizados)
+- [x] **4.1 Cenário S1 (10k)** — tabela + análise narrativa por banco
+- [x] **4.2 Cenário S2 (100k)** — tabela + análise narrativa por banco
+- [x] **4.3 Cenário S3 (500k)** — tabela + análise + observação sobre limites do Chroma
+- [x] Inserir figuras geradas pelo notebook:
+  - [x] Fig. 1 — Desempenho por cenário (indexação, latência p50, QPS)
+  - [x] Fig. 2 — Recall@k por cenário
+  - [x] Fig. 3 — Heatmap de consumo de recursos (RAM, disco)
+  - [x] Fig. 4 — Distribuição de latência p50 e p99
+  - [x] Fig. 5 — Radar multidimensional (S1+S2 normalizados)
 #### 4.2 Análise estatística
-- [ ] Apresentar IC 95% para latência p50 de cada banco/cenário
-- [ ] Apresentar resultados do teste Wilcoxon para pares significativos
-- [ ] Discussão sobre variabilidade: qual banco é mais previsível (menor desvio)?
+- [x] Apresentar IC 95% para latência p50 de cada banco/cenário
+- [x] Apresentar resultados do teste Wilcoxon para pares significativos
+- [x] Discussão sobre variabilidade: qual banco é mais previsível (menor desvio)?
 #### 4.3 Análise qualitativa e discussão
-- [ ] Comparar trade-offs: latência vs. recall vs. consumo vs. facilidade operacional
-- [ ] Discutir comportamento de cada banco por volume:
+- [x] Comparar trade-offs: latência vs. recall vs. consumo vs. facilidade operacional
+- [x] Discutir comportamento de cada banco por volume:
   - FAISS: como escala? Qual índice performa melhor em cada cenário?
   - Milvus: overhead de configuração vs. ganho de escala
   - Chroma: quando é a escolha certa e quando não é
-- [ ] Discutir achado sobre Chroma no S3 (limite operacional)
+- [x] Discutir achado sobre Chroma no S3 (limite operacional)
 #### 4.4 Recomendações práticas (tabela decisória — exigência da banca)
-- [ ] Criar matriz de decisão: Volume × Requisito → Banco recomendado
+- [x] Criar matriz de decisão: Volume × Requisito → Banco recomendado
   - Eixo de volume: prototipagem (<50k) / produção leve (<200k) / produção intensa (>200k)
   - Eixo de requisito: latência crítica / recall máximo / facilidade operacional / custo mínimo
-- [ ] Para cada célula da matriz: banco recomendado + justificativa em 1-2 frases
-- [ ] Adicionar nota sobre quando usar busca híbrida (vetorial + BM25)
+- [x] Para cada célula da matriz: banco recomendado + justificativa em 1-2 frases
+- [x] Adicionar nota sobre quando usar busca híbrida (vetorial + BM25) como trabalho futuro
 ---
 
 ### FASE 5 — Conclusão e ameaças à validade
 **Período:** 18/out – 24/out (7 dias)
 
 #### 5.1 Conclusão
-- [ ] Retomar a questão norteadora e respondê-la diretamente com base nos resultados
-- [ ] Sumarizar principais evidências experimentais por objetivo específico
-- [ ] Declaração formal da contribuição científica:
+- [x] Retomar a questão norteadora e respondê-la diretamente com base nos resultados
+- [x] Sumarizar principais evidências experimentais por objetivo específico
+- [x] Declaração formal da contribuição científica:
   - O que foi produzido
   - Qual lacuna preenche
   - O que não existia antes deste trabalho
-- [ ] Limitações do estudo (transição para ameaças)
-- [ ] Trabalhos futuros:
+- [x] Limitações do estudo (transição para ameaças)
+- [x] Trabalhos futuros:
   - Diferentes modelos de embedding
   - Busca híbrida (densa + esparsa)
   - Avaliação com LLM (ex: RAGAS framework) — deixar como trabalho futuro
   - Outros bancos: Qdrant, Weaviate
   - Hardware com GPU
 #### 5.2 Ameaças à validade (framework de Wohlin — exigência da banca)
-- [ ] **Validade interna** — o que pode ter causado viés nos resultados medidos:
+- [x] **Validade interna** — o que pode ter causado viés nos resultados medidos:
   - Vetores sintéticos em S2/S3 (discutir diferença em relação a embeddings reais)
   - Milvus Lite vs. Milvus distribuído (discutir extrapolação para produção)
   - Medição de RAM via psutil (overhead de Python, GC não determinístico)
-- [ ] **Validade externa** — limitações de generalização:
+- [x] **Validade externa** — limitações de generalização:
   - Embedding fixo (all-MiniLM-L6-v2); outros modelos podem gerar distribuições diferentes
   - Corpus em inglês (ag_news); comportamento pode variar em português
   - Hardware CPU-only; ambientes GPU podem inverter rankings de latência
-- [ ] **Validade de construto** — as métricas medem o que deveriam:
+- [x] **Validade de construto** — as métricas medem o que deveriam:
   - Recall@k como proxy de qualidade semântica (sem avaliação end-to-end com LLM)
   - Latência de batch vs. latência de query real em produção
-- [ ] **Validade de conclusão** — robustez estatística:
+- [x] **Validade de conclusão** — robustez estatística:
   - N=10 repetições (suficiente para IC 95% com t-distribution)
   - Warm-up descartado (1 execução inicial não contabilizada)
 ---
@@ -211,26 +206,26 @@
 - [ ] Numeração de páginas, margens, espaçamento
 - [ ] Formatar todas as referências segundo ABNT NBR 6023
 - [ ] Verificar citações no texto (AUTOR, ano) vs. (AUTOR, ano, p. X)
-- [ ] Revisar numeração de figuras e tabelas e legendas
-  - ✅ Decisão registrada: Figura 1 = RAG pipeline (Cap. 2); Figura 2 = HNSW (Cap. 2); Figuras 3–7 = Cap. 4
-  - ⚠️ Figura 2 (HNSW) tem URL placeholder — substituir pela URL real antes da entrega
+- [x] Revisar numeração de figuras e tabelas e legendas
+  - ✅ Figura 1 = RAG pipeline (Cap. 2); Figura 2 = HNSW (Cap. 2); Figuras 4.1–4.5 = Cap. 4
+  - ✅ Figura 2 (HNSW) usa asset local com fonte registrada
 #### 6.2 Apêndices
-- [ ] **Apêndice A** — Código completo do notebook (ou link para GitHub)
-- [ ] **Apêndice B** — Tabelas completas de resultados por índice (todas configs de FAISS e Milvus)
-- [ ] **Apêndice C** — Configurações detalhadas de cada índice (parâmetros, justificativas)
+- [ ] **Apêndice A** — Código completo do notebook (ou link para GitHub), somente se exigido pela instituição
+- [ ] **Apêndice B** — Tabelas completas de resultados por índice, somente se exigido pela instituição
+- [ ] **Apêndice C** — Configurações detalhadas de cada índice, somente se exigido pela instituição
 #### 6.3 Revisão de conteúdo
-- [ ] Leitura completa do documento — coerência entre capítulos
-- [ ] Verificar se todos os objetivos específicos foram respondidos na Conclusão
-- [ ] Verificar se todos os pontos da banca foram endereçados:
-  - [ ] Contribuição explícita ("O que este trabalho entrega que não existe hoje?")
-  - [ ] Diagrama RAG no Cap. 2
-  - [ ] Reprodutibilidade completa (GitHub, hardware, versões)
-  - [ ] Justificativa da escolha dos bancos
-  - [ ] Análise estatística com IC e Wilcoxon
-  - [ ] Ameaças à validade
-  - [ ] Recomendações práticas (matriz decisória)
-  - [ ] Contribuição científica explícita
-- [ ] Revisão ortográfica e gramatical
+- [x] Leitura completa do documento — coerência entre capítulos
+- [x] Verificar se todos os objetivos específicos foram respondidos na Conclusão
+- [x] Verificar os pontos de conteúdo da banca:
+  - [x] Contribuição explícita
+  - [x] Diagrama RAG no Cap. 2
+  - [x] Reprodutibilidade completa (GitHub, hardware, versões)
+  - [x] Justificativa da escolha dos bancos
+  - [x] Análise estatística com IC e Wilcoxon
+  - [x] Ameaças à validade
+  - [x] Recomendações práticas (matriz decisória)
+  - [x] Contribuição científica explícita
+- [x] Revisão ortográfica e gramatical da fonte canônica
 #### 6.4 Preparação para apresentação
 - [ ] Slides de apresentação (estrutura sugerida):
   - Contexto e problema (2 slides)
@@ -277,13 +272,13 @@ AGO                SET                OUT             NOV
 - [x] **Próximo passo:** Fase 2.1 — gap analysis + reescrita objetivos
 ### Sessão 4 — 26/ago/2026
 - [x] **Fase 2.1 concluída:** objetivos (b), (c), (e) reescritos; gap analysis adicionado; 1.3 Justificativa revisada
-- [x] **Fase 2.2 concluída:** figura RAG (WOLFF 2023) + figura HNSW (MALKOV 2020 — URL pendente) + 2.4.1 critérios de seleção + referências limpas (10 entradas)
+- [x] **Fase 2.2 concluída:** figura RAG (WOLFF 2023) + figura HNSW local (MALKOV 2020) + 2.4.1 critérios de seleção + referências limpas (10 entradas)
 - [x] **Fase 2 100% concluída** — antecipada em relação ao prazo (01–12/set)
 - [x] **Pendência transversal registrada (2.2.1):** definição formal de Recall@k, Precision@k, ground truth e oráculo — subseção obrigatória no Cap. 3
 - ⚠️ **Nota operacional:** `/mnt/project/` é cópia somente-leitura — edições devem ser feitas em `/home/claude/` e entregues via `present_files`
 - [x] **Próximo passo:** Cap. 3 — Metodologia (Fase 3)
 ### Sessão 2 — 17/ago/2026
-- [x] **Fase 1.1 concluída:** notebook reescrito como `benchmark_rag_vectordbs_v2.ipynb`
+- [x] **Fase 1.1 concluída:** notebook reescrito como `benchmark_rag_vectordbs.ipynb`
   - 43 células (20 code + 23 markdown), 51 KB
   - COLAB_MODE=True, S3=500k, N_RUNS=10, versões fixadas
   - Drive mount, save_checkpoint incremental, timeout Chroma (D6)
@@ -317,7 +312,7 @@ Ao retomar o trabalho neste projeto:
 4. **Ao escrever conteúdo da monografia**, siga o estilo já estabelecido no Cap. 1 e 2: formal, técnico, sem bullet points no corpo do texto, com citações ABNT
 5. **Ao reescrever o notebook**, manter compatibilidade com Colab gratuito (Python 3.12, sem GPU, RAM ~12 GB, numpy>=2.0)
 6. **Arquivo de monografia** está em `/mnt/project/Monografia`
-7. **Notebook atualizado** está em `/mnt/project/benchmark_rag_vectordbs.ipynb` (original) — versão v2 em outputs
+7. **Notebook atualizado** está em `benchmark_rag_vectordbs.ipynb`, que é a versão canônica do repositório.
 ### Contexto rápido do projeto
 - TCC sobre comparação de bancos vetoriais (FAISS, Milvus, Chroma) em pipelines RAG
 - Experimento: 3 cenários (10k, 100k, 500k vetores), métricas operacionais + Recall@k

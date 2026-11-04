@@ -28,7 +28,7 @@ O experimento mede métricas operacionais e qualidade de recuperação semântic
 
 ```
 .
-├── benchmark_rag_vectordbs_v2.ipynb   # Notebook principal (Colab-ready)
+├── benchmark_rag_vectordbs.ipynb      # Notebook principal (Colab-ready)
 ├── requirements.txt                   # Dependências com versões fixadas
 ├── results/
 │   ├── resultados_completos.csv       # Métricas consolidadas (9 linhas: 3 bancos × 3 cenários)
@@ -105,7 +105,7 @@ Todos os pares de bancos apresentaram diferenças de latência **estatisticament
 
 ### Perfis por banco (S1 + S2, normalizados)
 
-- **FAISS** — melhor throughput (QPS) e menor latência p99 de todos os cenários; maior consumo de RAM por manter o índice inteiro em memória.
+- **FAISS** — melhor throughput (QPS) e menor latência entre as configurações comparadas; o consumo de RAM varia por cenário e índice e não foi universalmente maior.
 - **Milvus** — maior Recall@10 e melhor eficiência de disco; overhead de inserção maior que o FAISS, compensado pela qualidade de recuperação.
 - **Chroma** — perfil equilibrado em S1 e S2; comportamento de inserção degradou significativamente em S3 (500k vetores), atingindo o limite de timeout de 30 minutos — achado registrado como resultado experimental.
 
@@ -115,7 +115,7 @@ Todos os pares de bancos apresentaram diferenças de latência **estatisticament
 
 ### Opção 1 — Google Colab (recomendado)
 
-1. Abra [`benchmark_rag_vectordbs_v2.ipynb`](benchmark_rag_vectordbs_v2.ipynb) no Google Colab
+1. Abra [`benchmark_rag_vectordbs.ipynb`](benchmark_rag_vectordbs.ipynb) no Google Colab
 2. Conecte ao ambiente de execução padrão (CPU, ~12 GB RAM)
 3. Execute todas as células em ordem
 4. Os resultados são salvos automaticamente no Google Drive (`TCC_BenchmarkRAG/`)
@@ -134,7 +134,7 @@ python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 
 pip install -r requirements.txt
-jupyter notebook benchmark_rag_vectordbs_v2.ipynb
+jupyter notebook benchmark_rag_vectordbs.ipynb
 ```
 
 > **Nota:** No Colab, `numpy` e `pandas` não são versionados no `requirements.txt` — o Colab já os fornece em versão compatível. Em ambiente local, instale `numpy>=2.0` e `pandas>=2.2.2` manualmente ou via `pip install -r requirements.txt`.
